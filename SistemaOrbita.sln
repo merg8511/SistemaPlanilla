@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaOrbita", "SistemaOrbita\SistemaOrbita.csproj", "{88A9FD72-91FA-4E48-A824-A3D15C1A4760}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88A9FD72-91FA-4E48-A824-A3D15C1A4760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88A9FD72-91FA-4E48-A824-A3D15C1A4760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88A9FD72-91FA-4E48-A824-A3D15C1A4760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88A9FD72-91FA-4E48-A824-A3D15C1A4760}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0FA03320-04F7-4C3D-B53A-AD0DAA44A789}
+	EndGlobalSection
+EndGlobal
