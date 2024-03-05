@@ -1,0 +1,64 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+@model IEnumerable<SistemaOrbita.Model.Models.Project>;
+
+@{
+    ViewData["Title"] = "Employee Project Assignment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var pageTitle = new PageTitleViewModel
+            {
+                Title = "Project list",
+                Breadcrumbs = new List<BreadcrumbItem>
+                {
+                    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+                    new BreadcrumbItem { Text = "Project List", Area = "BusinessManagement", Controller = "EPAssignment", Action = "Index" },
+                }
+            };
+}
+<partial name="_PageTitle" model="@pageTitle" />
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h6>
+        </div>
+        <div class="card-body">
+            <!-- Encabezados -->
+            <div class="d-flex text-muted border-bottom">
+                <div class="col-md-3"><strong>Name</strong></div>
+                <div class="col-md-3"><strong>Manager</strong></div>
+                <div class="col-md-4"><strong>Description</strong></div>
+                <div class="col-md-2 text-center"><strong>Actions</strong></div>
+            </div>
+            <!-- Contenido -->
+            @foreach (var item in Model)
+            {
+                <div id="projectHeader-@item.Id" class="d-flex align-items-center pt-3" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#collapseEmployees-@item.Id" aria-expanded="false" aria-controls="collapseEmployees-@item.Id">
+                    <div class="col-md-3">@item.Name</div>
+                    <div class="col-md-3">@item.Manager.FirstName @item.Manager.LastName</div>
+                    <div class="col-md-4">@item.Description</div>
+                    <div class="col-md-2 text-center">
+                        <a asp-action="Upsert" asp-route-Id="@item.Id" class="btn btn-success btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="bi bi-plus-lg"></i>
+                            </span>
+                            <span class="text">Add</span>
+                        </a>
+                    </div>
+                </div>
+                <div id="collapseEmployees-@item.Id" class="collapse" aria-labelledby="projectHeader-@item.Id">
+                    <div class="card-body">
+                        @await Html.PartialAsync("_AssignmentProjects",item.EmployeeProjectAssignments)
+                    </div>
+                </div>
+                <hr />
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/pages/employee-project-assignment.js"></script>
+}

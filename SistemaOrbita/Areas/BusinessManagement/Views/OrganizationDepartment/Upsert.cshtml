@@ -1,0 +1,85 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+@model SistemaOrbita.Model.Models.OrganizationDepartment
+
+@{
+    ViewData["Title"] = "Upsert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Create Organization Department";
+}
+
+<section class="section">
+    @{
+        var pageTitle = new PageTitleViewModel
+            {
+                Title = Model.Id == null ? "Create" : "Update",
+                Breadcrumbs = new List<BreadcrumbItem>
+                {
+                    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+                    new BreadcrumbItem { Text = "Organization Department", Area = "BusinessManagement", Controller = "OrganizationDepartment", Action = "Index" },
+                }
+            };
+    }
+    <partial name="_PageTitle" model="@pageTitle" />
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-8">
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- Advanced Form Elements -->
+                    <form method="post">
+
+                        @if (!string.IsNullOrEmpty(Model.Id))
+                        {
+                            title = "Update Organization Department";
+                            <input type="hidden" asp-for="Id" id="Id" />
+                        }
+                        <h4 class="card-title mb-3">@title</h4>
+
+                        <div class="row border-0">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        </div>
+
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-sm-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" asp-for="Name" class="form-control" id="floatingInput" placeholder="">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                    <label for="floatingInput">Organization Department name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" asp-for="Description" class="form-control form-control-lg" id="floatingInput" placeholder="" style="height:200px"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                    <label for="floatingInput">Description</label>
+                                </div>
+                                @if (!string.IsNullOrEmpty(Model.Id))
+                                {
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="floatingSelect" aria-label="Choose a state" asp-for="IsActive">
+                                            <option selected>Open this select menu</option>
+                                            <option value="0">Inactive</option>
+                                            <option value="1">Active</option>
+                                        </select>
+                                        <label for="floatingSelect">Select a status</label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            @if (string.IsNullOrEmpty(Model.Id))
+                            {
+                                <partial name="_AddBackButtons" />
+                            }
+                            else
+                            {
+                                <partial name="_UpdateBackButtons" model="Model.Id" />
+                            }
+                        </div>
+                    </form><!-- End General Form Elements -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

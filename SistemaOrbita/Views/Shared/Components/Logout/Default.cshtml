@@ -4,15 +4,23 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave @User.Identity.Name?</h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                @{
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        <form method="post" id="logout" class="form-horizontal mb-lg" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" novalidate="novalidate">
+                            <input type="hidden" name="__RequestVerificationToken" value="@Html.Raw(ViewContext.HttpContext.Request.Cookies["XSRF-TOKEN"])">
+                            <button type="submit" class="btn btn-primary modal-bs-confirm" id="submitLogout">Logout</button>
+                            <button type="button" class="btn btn-default modal-bs-dismiss" data-bs-dismiss="modal">Cancel</button>
+                        </form>
+                    }
+                }
             </div>
         </div>
     </div>

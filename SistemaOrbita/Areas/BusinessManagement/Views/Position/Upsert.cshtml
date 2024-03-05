@@ -1,0 +1,105 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+@model SistemaOrbita.Model.ViewModels.PositionVM
+
+@{
+    ViewData["Title"] = "Upsert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Create position";
+}
+
+<section class="section">
+
+    @{
+        var pageTitle = new PageTitleViewModel
+            {
+                Title = Model.Position.Id == null ? "Create" : "Update",
+                Breadcrumbs = new List<BreadcrumbItem>
+    {
+    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+    new BreadcrumbItem { Text = "Position", Area = "BusinessManagement", Controller = "Position", Action = "Index" },
+    }
+            };
+    }
+    <partial name="_PageTitle" model="@pageTitle" />
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-8">
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- Advanced Form Elements -->
+                    <form method="post">
+
+                        @if (!string.IsNullOrEmpty(Model.Position.Id))
+                        {
+                            title = "Update position";
+                            <input type="hidden" asp-for="Position.Id" />
+                        }
+                        <h4 class="card-title mb-3">@title</h4>
+
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-sm-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" asp-for="Position.Title" class="form-control" id="floatingInput" placeholder="CEO">
+                                    <span asp-validation-for="Position.Title" class="text-danger"></span>
+                                    <label for="floatingInput">Position name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" asp-for="Position.Description" class="form-control form-control-lg" id="floatingInput" placeholder="" style="height:200px"></textarea>
+                                    <span asp-validation-for="Position.Description" class="text-danger"></span>
+                                    <label for="floatingInput">Description</label>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-sm-5 col-form-label text-sm-left" for="floatingInput">Minimum Salary</label>
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" asp-for="Position.MinSalary" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                    <span class="input-group-text">.00</span>
+                                    <span asp-validation-for="Position.MinSalary" class="text-danger"></span>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <label class="col-sm-5 col-form-label text-sm-left" for="floatingInput">Maximum Salary</label>
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" asp-for="Position.MaxSalary" class="form-control" aria-label="Amount (to the nearest dollar)">
+                                    <span class="input-group-text">.00</span>
+                                    <span asp-validation-for="Position.MaxSalary" class="text-danger"></span>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" asp-for="Position.OrganizationDepartmentId" asp-items="Model.Organizations" id="floatingSelect" aria-label="Choose a department">
+                                        <option></option>
+                                    </select>
+                                    <span asp-validation-for="Position.OrganizationDepartmentId" class="text-danger"></span>
+                                    <label for="floatingSelect">Select a department</label>
+                                </div>
+                                @if (!string.IsNullOrEmpty(Model.Position.Id))
+                                {
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="floatingSelect" aria-label="Choose a state" asp-for="Position.IsActive">
+                                            <option selected>Open this select menu</option>
+                                            <option value="0">Inactive</option>
+                                            <option value="1">Active</option>
+                                        </select>
+                                        <label for="floatingSelect">Select a status</label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            @if (string.IsNullOrEmpty(Model.Position.Id))
+                            {
+                                <partial name="_AddBackButtons" />
+                            }
+                            else
+                            {
+                                <partial name="_UpdateBackButtons" model="@Model.Position.Id" />
+                            }
+                        </div>
+                    </form><!-- End General Form Elements -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

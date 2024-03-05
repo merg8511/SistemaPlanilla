@@ -1,0 +1,208 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+@model SistemaOrbita.Model.ViewModels.EmployeeVM
+
+@{
+    ViewData["Title"] = "Upsert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Create Employee";
+}
+
+<section class="section">
+
+    @{
+        var pageTitle = new PageTitleViewModel
+            {
+                Title = Model.Employee.Id == null ? "Create" : "Update",
+                Breadcrumbs = new List<BreadcrumbItem>
+    {
+    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+    new BreadcrumbItem { Text = "Employee", Area = "BusinessManagement", Controller = "Employee", Action = "Index" },
+    }
+            };
+    }
+    <partial name="_PageTitle" model="@pageTitle" />
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- Advanced Form Elements -->
+                    <form method="post">
+                        @if (!string.IsNullOrEmpty(Model.Employee.Id))
+                        {
+                            title = "Update employee";
+                            <input asp-for="Employee.Id" hidden />
+                        }
+                        <h4 class="card-title mb-3">@title</h4>
+
+                        <div class="row border-0">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6>Personal information</h6>
+                                <div class="row mb-3 justify-content-center">
+                                    <div class="col-sm-5">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" asp-for="Employee.FirstName" class="form-control" id="floatingInput" placeholder="John">
+                                            <label for="floatingInput">Name</label>
+                                            <span asp-validation-for="Employee.FirstName" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" asp-for="Employee.LastName" class="form-control" id="floatingInput" placeholder="Doe">
+                                            <label for="floatingInput">Last name</label>
+                                            <span asp-validation-for="Employee.LastName" class="text-danger"></span>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="basic-addon1">@@</span>
+                                                <input type="email" asp-for="Employee.Email" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="basic-addon1">
+                                            </div>
+                                            <div>
+                                                <span asp-validation-for="Employee.Email" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" asp-for="Employee.GenderId" asp-items="Model.Genders">
+                                                <option></option>
+                                            </select>
+                                            <label for="floatingSelect">Select a gender</label>
+                                            <span asp-validation-for="Employee.GenderId" class="text-danger"></span>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <label class="col-sm-3 col-form-label text-sm-left" for="floatingInput">Birthday</label>
+                                            <input type="date" asp-for="Employee.Birthday" class="form-control w-75" aria-label="Birthday" aria-describedby="basic-addon1">
+                                            <span asp-validation-for="Employee.Birthday" class="text-danger"></span>
+                                        </div>
+                                        @if (!string.IsNullOrEmpty(Model.Employee.Id))
+                                        {
+                                            <div class="form-floating mb-3">
+                                                <select class="form-select" id="floatingSelect" aria-label="Choose a state" asp-for="Employee.IsActive">
+                                                    <option selected>Open this select menu</option>
+                                                    <option value="0">Inactive</option>
+                                                    <option value="1">Active</option>
+                                                </select>
+                                                <label for="floatingSelect">Select a status</label>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6>Contact information</h6>
+                                <div class="row mb-3 justify-content-center">
+                                    <div class="col-sm-5">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" asp-for="Employee.PhoneNumber" class="form-control" id="floatingInput" placeholder="0000-0000">
+                                            <label for="floatingInput">PhoneNumber</label>
+                                            <span asp-validation-for="Employee.PhoneNumber" class="text-danger"></span>
+                                        </div>                                       
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" asp-for="Employee.MunicipalityId" asp-items="Model.Municipalities" id="municipality">
+                                                <option></option>
+                                            </select>
+                                            <span asp-validation-for="Employee.MunicipalityId" class="text-danger"></span>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="form-floating mb-3">
+                                            <textarea type="text" asp-for="Employee.Address" class="form-control form-control-lg" id="floatingInput" placeholder="" style="height:120px"></textarea>
+                                            <span asp-validation-for="Employee.Address" class="text-danger"></span>
+                                            <label for="floatingInput">Address</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h6>Contract information</h6>
+                                <div class="row mb-3 justify-content-center">
+                                    <div class="col-sm-5">
+                                        <div class="form-floating mb-3">
+                                            <select class="form-select" id="positionSelect" asp-for="Employee.PositionId">
+                                                <option></option>
+                                                @foreach (var position in Model.PositionsList)
+                                                {
+                                                    <option value="@position.Id" data-min-salary="@position.MinSalary" data-max-salary="@position.MaxSalary">@position.Title</option>
+                                                }
+                                            </select>
+                                            <label for="floatingSelect">Select a position</label>
+                                            <span asp-validation-for="Employee.PositionId" class="text-danger"></span>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-7">
+                                                <label class="text-start" style="font-size:10px">Min: <span id="minSalary">$ </span></label>
+                                                <label class="text-end" style="font-size:10px"> - Max: <span id="maxSalary">$ </span></label>
+                                                <input type="range" class="form-range" id="salarySlider">
+                                            </div>
+                                            <div class="col-sm-5">
+
+                                                <div class="form-floating mb-3">
+                                                    <input type="text" asp-for="Employee.Salary" class="form-control text-end" id="salaryInput" placeholder="">
+                                                    <label for="floatingInput" class="text-center">Monthly salary</label>
+                                                </div>
+                                            </div>
+                                            <div id="salaryError" class="text-danger" style="display: none;">Salary must be between the specified range.</div>
+                                            <span asp-validation-for="Employee.Salary" class="text-danger"></span>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="input-group mb-3">
+                                            <label class="col-sm-3 col-form-label text-sm-left" for="floatingInput">StartDate</label>
+                                            <input type="date" asp-for="Employee.StartDate" class="form-control w-75" aria-label="StartDate" aria-describedby="basic-addon1">
+                                            <span asp-validation-for="Employee.StartDate" class="text-danger"></span>
+                                        </div>
+                                        <div class="input-group mt-4">
+                                            <label class="col-sm-3 col-form-label text-sm-left" for="floatingInput">EndDate</label>
+                                            <input type="date" asp-for="Employee.EndDate" class="form-control" aria-label="StartDate" aria-describedby="basic-addon1">
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-sm-5">
+                            </div>
+                            <div class="col-sm-5">
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            @if (string.IsNullOrEmpty(Model.Employee.Id))
+                            {
+                                <partial name="_AddBackButtons" />
+                            }
+                            else
+                            {
+                                <partial name="_UpdateBackButtons" model="Model.Employee.Id" />
+                            }
+                        </div>
+                    </form><!-- End General Form Elements -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/js/pages/employee.js"></script>
+}

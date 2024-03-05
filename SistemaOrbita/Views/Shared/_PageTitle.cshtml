@@ -1,0 +1,15 @@
+﻿@model SistemaOrbita.Model.ViewModels.PageTitleViewModel
+
+<div class="pagetitle">
+    <nav>
+        <ol class="breadcrumb">
+            @foreach (var item in Model.Breadcrumbs)
+            {
+                <li class="breadcrumb-item">
+                    <a class="collapse-item" asp-area="@item.Area" asp-controller="@item.Controller" asp-action="@item.Action">@item.Text</a>
+                </li>
+            }
+            <li class="breadcrumb-item active">@Model.Title</li>
+        </ol>
+    </nav>
+</div>
