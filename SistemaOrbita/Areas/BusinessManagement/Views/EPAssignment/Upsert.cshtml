@@ -1,0 +1,71 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+@model SistemaOrbita.Model.ViewModels.EmployeeAssignmentVM;
+@{
+    ViewData["Title"] = "Upsert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Project Assignment";
+}
+
+<section class="section">
+
+<link href="~/css/employee-assignment.css" rel="stylesheet" />
+    @{
+        var pageTitle = new PageTitleViewModel
+            {
+                Title = "Assignment",
+                Breadcrumbs = new List<BreadcrumbItem>
+    {
+    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+    new BreadcrumbItem { Text = "Project Assignment", Area = "BusinessManagement", Controller = "EPAssignment", Action = "Index" },
+    }
+            };
+    }
+    <partial name="_PageTitle" model="@pageTitle" />
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-8">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="container mt-5">
+
+                        <h3 class="card-title"><strong>Proyecto:</strong> @Model.Project.Name</h3>
+                        <p class="card-text">@Model.Project.Description</p>
+
+                        <div id="preselectedEmployees" data-employees='@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Employees.Where(e => Model.SelectedEmployeeIds.Contains(e.Id)).Select(e => new { e.Id, e.FirstName, e.LastName, e.Position.Title, GenderImage = e.Gender.Name == "Male" ? "/img/profile/undraw_profile_2.svg" : "/img/profile/undraw_profile_3.svg" })))'></div>
+
+                        <form asp-action="Upsert">
+                            <input type="hidden" name="projectId" value="@Model.Project.Id" />
+                            <input type="hidden" id="selectedEmployeeIds" name="selectedEmployeeIds" value="" />
+
+                            <div class="mb-3">
+                                <label for="searchEmployee" class="form-label">Search employees</label>
+                                <select class="form-control select2" id="searchEmployee" name="SelectedEmployeeIds" multiple>
+                                    @foreach (var employee in Model.Employees)
+                                    {
+                                        <option value="@employee.Id"
+                                                data-position="@employee.Position.Title"
+                                                data-gender="@employee.Gender.Name"
+                                                data-image-url="@(employee.Gender.Name == "Male" ? "/img/profile/undraw_profile_2.svg" : "/img/profile/undraw_profile_3.svg")">
+                                            @employee.FirstName @employee.LastName
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                            <div id="selectedMembers">
+                                <!-- Lista de miembros seleccionados se generará aquí con JS -->
+                            </div>
+                            <div class="text-center">
+                                <partial name="_AddBackButtons" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script src="~/js/pages/employee-project-assignment.js"></script>
+}

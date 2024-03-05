@@ -1,0 +1,105 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+@model SistemaOrbita.Model.Models.EventType
+
+@{
+    ViewData["Title"] = "Upsert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Create event";
+}
+
+<section class="section">
+
+    @{
+        var pageTitle = new PageTitleViewModel
+            {
+                Title = Model.Id == null ? "Create" : "Update",
+                Breadcrumbs = new List<BreadcrumbItem>
+    {
+    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+    new BreadcrumbItem { Text = "Event Type", Area = "BusinessManagement", Controller = "EventType", Action = "Index" },
+    }
+            };
+    }
+    <partial name="_PageTitle" model="@pageTitle" />
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-8">
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- Advanced Form Elements -->
+                    <form method="post">
+                        @if (!string.IsNullOrEmpty(Model.Id))
+                        {
+                            title = "Update event";
+                            <input type="hidden" asp-for="Id" id="Id" />
+                        }
+                        <h4 class="card-title mb-3">@title</h4>
+
+                        <div class="row border-0">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        </div>
+
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-sm-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" asp-for="Name" class="form-control" id="floatingInput" placeholder="">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                    <label for="floatingInput">Event name</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" asp-for="Description" class="form-control form-control-lg" id="floatingInput" placeholder="" style="height:200px"></textarea>
+                                    <span asp-validation-for="Description" class="text-danger"></span>
+                                    <label for="floatingInput">Description</label>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label mb-3">Type</label>
+                                    <div class="col-sm-3">
+                                        <div class="form-check mt-2">
+                                            <label class="form-check-label">
+                                                <input type="radio" asp-for="IsDeduction" class="form-check-input" value="0" checked>
+                                                Bonus
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-check mt-2">
+                                            <label class="form-check-label">
+                                                <input type="radio" asp-for="IsDeduction" class="form-check-input" value="1">
+                                                Deduction
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="IsDeduction" class="text-danger"></span>
+                                </div>
+                                @if (!string.IsNullOrEmpty(Model.Id))
+                                {
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="floatingSelect" aria-label="Choose a state" asp-for="IsActive">
+                                            <option selected>Open this select menu</option>
+                                            <option value="0">Inactive</option>
+                                            <option value="1">Active</option>
+                                        </select>
+                                        <label for="floatingSelect">Select a status</label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            @if (string.IsNullOrEmpty(Model.Id))
+                            {
+                                <partial name="_AddBackButtons" />
+                            }
+                            else
+                            {
+                                <partial name="_UpdateBackButtons" model="Model.Id" />
+                            }
+                        </div>
+                    </form><!-- End General Form Elements -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

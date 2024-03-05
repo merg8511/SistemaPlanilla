@@ -1,0 +1,117 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+@model SistemaOrbita.Model.ViewModels.ProjectVM;
+@{
+    ViewData["Title"] = "Upsert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Create Project";
+}
+
+<section class="section">
+
+    @{
+        var pageTitle = new PageTitleViewModel
+            {
+                Title = Model.Project.Id == null ? "Create" : "Update",
+                Breadcrumbs = new List<BreadcrumbItem>
+    {
+    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+    new BreadcrumbItem { Text = "Project", Area = "BusinessManagement", Controller = "Project", Action = "Index" },
+    }
+            };
+    }
+    <partial name="_PageTitle" model="@pageTitle" />
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-8">
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- Advanced Form Elements -->
+                    <form method="post">
+                        @if (!string.IsNullOrEmpty(Model.Project.Id))
+                        {
+                            title = "Update project";
+                            <input asp-for="Project.Id" hidden />
+                        }
+                        <h4 class="card-title mb-3">@title</h4>
+
+                        <div class="row border-0">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        </div>
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-sm-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" asp-for="Project.Name" class="form-control" id="floatingInput" placeholder="John">
+                                    <label for="floatingInput">Name</label>
+                                    <span asp-validation-for="Project.Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" asp-for="Project.ManagerId" asp-items="Model.Managers">
+                                        <option></option>
+                                    </select>
+                                    <label for="floatingSelect">Select a manager</label>
+                                    <span asp-validation-for="Project.ManagerId" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <textarea type="text" asp-for="Project.Description" class="form-control form-control-lg" id="floatingInput" placeholder="" style="height:120px"></textarea>
+                                    <span asp-validation-for="Project.Description" class="text-danger"></span>
+                                    <label for="floatingInput">Description</label>
+                                </div>
+
+                                @if (!string.IsNullOrEmpty(Model.Project.Id))
+                                {
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="floatingSelect" aria-label="Choose a state" asp-for="Project.IsActive">
+                                            <option selected>Open this select menu</option>
+                                            <option value="0">Inactive</option>
+                                            <option value="1">Active</option>
+                                        </select>
+                                        <label for="floatingSelect">Select a status</label>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-sm-5">
+                                <!-- StartDate -->
+                                <div class="form-floating mb-3">
+                                    <input type="date" asp-for="Project.StartDate" class="form-control" id="StartDate" aria-describedby="StartDateLabel">
+                                    <label for="StartDate">StartDate</label>
+                                    <span asp-validation-for="Project.StartDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-sm-5">
+                                <!-- EndDate -->
+                                <div class="form-floating mb-3">
+                                    <input type="date" asp-for="Project.EndDate" class="form-control" id="EndDate" aria-describedby="EndDateLabel">
+                                    <label for="EndDate">EndDate</label>
+                                    <span asp-validation-for="Project.EndDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="text-center">
+                            @if (string.IsNullOrEmpty(Model.Project.Id))
+                            {
+                                <partial name="_AddBackButtons" />
+                            }
+                            else
+                            {
+                                <partial name="_UpdateBackButtons" model="Model.Project.Id" />
+                            }
+                        </div>
+                    </form><!-- End General Form Elements -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    <script src="~/js/pages/employee.js"></script>
+}

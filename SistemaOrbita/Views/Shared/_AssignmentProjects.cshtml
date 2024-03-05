@@ -1,0 +1,37 @@
+﻿@model IEnumerable<SistemaOrbita.Model.Models.EmployeeProjectAssignment>
+
+<div class="row">
+    <div class="col-12">
+        <table id="dataTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Employee</th>
+                    <th>Assignment Date</th>
+                    <th>Unassignment Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var assignment in Model)
+                {
+                    <tr data-id="@assignment.Id">
+                        <td style="width:40%">
+                            @assignment.Employee.FirstName @assignment.Employee.LastName
+                        </td>
+                        <td class="text-center" style="width:20%">
+                            @assignment.AssignedDate?.ToString("dd/MM/yyyy")
+                        </td style="width:20%">
+                        <td class="text-center">
+                            @assignment.UnassignedDate?.ToString("dd/MM/yyyy")
+                        </td>
+                        <td class="text-center" style="width:20%">
+                            <a onclick=Delete("@assignment.Id","/BusinessManagement/EPAssignment/Delete/@assignment.Id") class="btn btn-sm btn-danger text-white" style="cursor:pointer" title="Delete employee">
+                                <i class="bi bi-trash3-fill" style="font-size:0.8rem;"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

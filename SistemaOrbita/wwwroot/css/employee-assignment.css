@@ -1,0 +1,90 @@
+﻿.selected-member {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    border: 1px solid #d1d3e2;
+    border-radius: 0.375rem;
+}
+
+    .selected-member .employee-details {
+        flex-grow: 1; /* Asegura que los detalles del empleado ocupen el espacio disponible */
+        margin-right: 1rem; /* Espacio entre los detalles del empleado y el botón Remove */
+    }
+
+.employee-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px; /* Espacio entre la imagen y el texto */
+}
+
+.employee-name {
+    font-weight: bold;
+}
+
+.employee-position {
+    display: block;
+    color: #666;
+    font-size: 0.8em;
+}
+
+.remove-member-btn {
+    padding: 0.25rem 0.5rem; /* Tamaño del botón */
+    margin-left: 10px; /* Espacio entre el botón y los detalles del empleado */
+    background: none;
+    border: none;
+    color: #d33;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+    .remove-member-btn:hover {
+        padding: 10px;
+        background: #d33;
+        color: black;
+    }
+
+/* Optional: Estilos para Select2 para que coincida más con la imagen proporcionada */
+.select2-container--default .select2-selection--multiple {
+    border: 1px solid #d1d3e2;
+    border-radius: 0.375rem;
+    padding: 0.375rem;
+}
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #e2e6ea;
+        border: none;
+        border-radius: 0.375rem;
+        padding: 0.25rem 0.5rem;
+        margin-right: 0.5rem;
+        color: #333;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+        color: #5a5c69;
+        margin-right: 0.25rem;
+    }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+            color: #1a1c23;
+        }
+
+.employee-image {
+    width: 50px; /* o cualquier tamaño que desees */
+    height: 50px; /* o cualquier tamaño que desees */
+    border-radius: 50%; /* para hacerla circular */
+    margin-right: 10px;
+}
+
+.employee-name {
+    font-weight: bold;
+}
+
+.employee-position {
+    display: block; /* o inline-block, dependiendo de tu diseño */
+    color: #666;
+    font-size: 0.8em;
+}

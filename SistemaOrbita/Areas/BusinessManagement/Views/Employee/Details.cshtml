@@ -1,0 +1,195 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+@model SistemaOrbita.Model.Models.Employee
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main id="main" class="main">
+
+    @{
+        var pageTitle = new PageTitleViewModel
+            {
+                Title = "Details",
+                Breadcrumbs = new List<BreadcrumbItem>
+    {
+    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+    new BreadcrumbItem { Text = "Employee", Area = "BusinessManagement", Controller = "Employee", Action = "Index" },
+    }
+            };
+    }
+    <partial name="_PageTitle" model="@pageTitle" />
+
+    <section class="section profile">
+        <div class="row">
+            <div class="col-xl-4">
+
+                <div class="card">
+                    <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                        @if (Model.Gender.Name == "Male")
+                        {
+                            <img src="~/img/profile/undraw_profile_2.svg" alt="Profile" class="rounded-circle w-50">
+                        }
+                        else
+                        {
+                            <img src="~/img/profile/undraw_profile_3.svg" alt="Profile" class="rounded-circle w-50">
+                        }
+                        <h2 class="text-primary text-center p-0 m-0">@Model.FirstName @Model.LastName</h2>
+                        <h5 class="p-0 m-0">@Model.Position.Title</h5>
+                        <div class="social-links mt-2">
+                            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-xl-8">
+
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <!-- Bordered Tabs -->
+                        <ul class="nav nav-tabs nav-tabs-bordered">
+
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#personal-information">Personal information</button>
+                            </li>
+
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#work-history">Work history</button>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content pt-2">
+
+                            <div class="tab-pane fade show active personal-information" id="personal-information">
+
+                                <h5 class="card-title mt-4">Employee Details</h5>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label text-primary">Full Name</div>
+                                    <div class="col-lg-9 col-md-8">@Model.FirstName @Model.LastName</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label text-primary">Birthday</div>
+                                    <div class="col-lg-9 col-md-8">@Model.Birthday?.ToString("dd/MM/yyyy")</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label text-primary">Email</div>
+                                    <div class="col-lg-9 col-md-8">@Model.Email</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label text-primary">Gender</div>
+                                    <div class="col-lg-9 col-md-8">@Model.Gender.Name</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label text-primary">Phone Number</div>
+                                    <div class="col-lg-9 col-md-8">@Model.PhoneNumber</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label text-primary">Address</div>
+                                    <div class="col-lg-9 col-md-8">@Model.Address, @Model.Municipality.Name</div>
+                                </div>
+
+                                <h5 class="card-title mt-4">Contract information</h5>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label text-primary">Position</div>
+                                    <div class="col-lg-9 col-md-8">@Model.Position.Title</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label text-primary">Start Date</div>
+                                    <div class="col-lg-9 col-md-8">@Model.StartDate?.ToString("dd/MM/yyyy")</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label text-primary">Salary</div>
+                                    <div class="col-lg-9 col-md-8">$ @Model.Salary</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label text-primary">End Date</div>
+                                    <div class="col-lg-9 col-md-8">@Model.EndDate?.ToString("dd/MM/yyyy")</div>
+                                </div>
+
+                                <h5 class="card-title mt-4">Other information</h5>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label text-primary">Status</div>
+                                    <div class="col-lg-9 col-md-8">@(Model.IsActive == 1 ? "Active" : "Inactive")</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label text-primary">Created At</div>
+                                    <div class="col-lg-9 col-md-8">@Model.CreatedAt?.ToString("dd/MM/yyyy")</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4 label text-primary">Created By</div>
+                                    <div class="col-lg-9 col-md-8">@Model.CreatedBy</div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade pt-3" id="work-history">
+                                <div class="container-fluid">
+                                    <div class="row justify-content-center">
+                                        <div class="table table-striped">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Position</th>
+                                                        <th>Salary</th>
+                                                        <th>Change reason</th>
+                                                        <th>StartDate</th>
+                                                        <th>EndDate</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.EmployeeHistories)
+                                                    {
+                                                        <tr>
+                                                            <td width="20%">
+                                                                @item.Position.Title
+                                                            </td>
+                                                            <td width="20%">
+                                                                $ @item.NewSalary
+                                                            </td>
+                                                            <td width="20%">
+                                                                @item.ChangeReason
+                                                            </td>
+                                                            <td width="20%">
+                                                                @item.StartDate?.ToString("dd/MM/yyyy")
+                                                            </td>
+                                                            <td width="20%">
+                                                                @item.EndDate?.ToString("dd/MM/yyyy")
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                        </div><!-- End Bordered Tabs -->
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->

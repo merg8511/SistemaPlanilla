@@ -1,0 +1,67 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+
+@{
+    ViewData["Title"] = "Organization departments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var pageTitle = new PageTitleViewModel
+            {
+                Title = "Organization department list",
+                Breadcrumbs = new List<BreadcrumbItem>
+                {
+                    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+                    new BreadcrumbItem { Text = "Organization department", Area = "BusinessManagement", Controller = "OrganizationDepartment", Action = "Index" },
+                }
+            };
+}
+<partial name="_PageTitle" model="@pageTitle" />
+
+<div id="container-fluid">
+    <div class="mb-3">
+        <a asp-action="Upsert" class="btn btn-primary btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="bi bi-plus-lg"></i>
+            </span>
+            <span class="text">New department</span>
+        </a>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Name</th>
+                            <th>Description</th>
+                            <th>Created by</th>
+                            <th>Created at</th>
+                            <th>Updated at</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th class="text-center">Name</th>
+                            <th>Description</th>
+                            <th>Created by</th>
+                            <th>Created at</th>
+                            <th>Updated at</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/pages/organization-department.js"></script>
+}

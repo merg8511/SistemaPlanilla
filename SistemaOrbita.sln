@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaOrbita", "SistemaOrbita\SistemaOrbita.csproj", "{88A9FD72-91FA-4E48-A824-A3D15C1A4760}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SistemaOrbita", "SistemaOrbita\SistemaOrbita.csproj", "{88A9FD72-91FA-4E48-A824-A3D15C1A4760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaOrbita.DAL", "SistemaOrbita.DAL\SistemaOrbita.DAL.csproj", "{257A5A54-C0DD-4421-BA51-BFD70633ECCB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaOrbita.Model", "SistemaOrbita.Model\SistemaOrbita.Model.csproj", "{E88F7F5B-7FDA-4881-9CED-EA09C5E770E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaOrbita.Utilities", "SistemaOrbita.Utilities\SistemaOrbita.Utilities.csproj", "{5939ABD5-41DA-4B36-98F0-B1527D60B5C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{88A9FD72-91FA-4E48-A824-A3D15C1A4760}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88A9FD72-91FA-4E48-A824-A3D15C1A4760}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88A9FD72-91FA-4E48-A824-A3D15C1A4760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{257A5A54-C0DD-4421-BA51-BFD70633ECCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{257A5A54-C0DD-4421-BA51-BFD70633ECCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{257A5A54-C0DD-4421-BA51-BFD70633ECCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{257A5A54-C0DD-4421-BA51-BFD70633ECCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E88F7F5B-7FDA-4881-9CED-EA09C5E770E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E88F7F5B-7FDA-4881-9CED-EA09C5E770E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E88F7F5B-7FDA-4881-9CED-EA09C5E770E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E88F7F5B-7FDA-4881-9CED-EA09C5E770E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5939ABD5-41DA-4B36-98F0-B1527D60B5C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5939ABD5-41DA-4B36-98F0-B1527D60B5C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5939ABD5-41DA-4B36-98F0-B1527D60B5C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5939ABD5-41DA-4B36-98F0-B1527D60B5C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

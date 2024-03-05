@@ -2,11 +2,11 @@
 <ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+        <div class="sidebar-brand-icon">
+            <img src="~/img/orbita/logo-orbita-icono.svg" width="50" />
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text" style="font-size:20px">rbita</div>
     </a>
 
     <!-- Divider -->
@@ -14,7 +14,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" asp-area="BusinessManagement" asp-controller="Home" asp-action="Index">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span>
         </a>
@@ -25,10 +25,42 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Interface
+        CONFIGURATION
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
+    <!-- Nav Item - Management -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseManagement"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Management</span>
+        </a>
+        <div class="collapse" id="collapseManagement">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">EMPLOYEE CONFIGURATION:</h6>
+                <a class="collapse-item" asp-area="BusinessManagement" asp-controller="OrganizationDepartment" asp-action="Index">Department</a>
+                <a class="collapse-item" asp-area="BusinessManagement" asp-controller="Position" asp-action="Index">Position</a>
+                <a class="collapse-item" asp-area="BusinessManagement" asp-controller="Employee" asp-action="Index">Employees</a>
+                <h6 class="collapse-header">EVENTS:</h6>
+                <a class="collapse-item" asp-area="BusinessManagement" asp-controller="EventType" asp-action="Index">Events</a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProjects"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fa fa-briefcase" aria-hidden="true"></i>
+            <span>Project</span>
+        </a>
+        <div class="collapse" id="collapseProjects">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">PROJECT CONFIGURATION:</h6>
+                <a class="collapse-item" asp-area="BusinessManagement" asp-controller="Project" asp-action="Index">Project</a>
+                <a class="collapse-item" asp-area="BusinessManagement" asp-controller="EPAssignment" asp-action="Index">Assignment</a>
+            </div>
+        </div>
+    </li>
+    @*<!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
            aria-expanded="true" aria-controls="collapseTwo">
@@ -71,7 +103,7 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
+   <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
            aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-folder"></i>
@@ -89,10 +121,10 @@
                 <a class="collapse-item" href="blank.html">Blank Page</a>
             </div>
         </div>
-    </li>
+    </li>*@
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item">
+    @*<li class="nav-item">
         <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Charts</span>
@@ -105,7 +137,7 @@
             <i class="fas fa-fw fa-table"></i>
             <span>Tables</span>
         </a>
-    </li>
+    </li>*@
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
