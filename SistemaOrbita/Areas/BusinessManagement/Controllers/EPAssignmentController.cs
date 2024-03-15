@@ -21,6 +21,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         }
 
         [OrbitaAuthorize(Permissions.EmployeeProjectAssignment.View)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_View} EmployeeProjectAssignment")]
         public async Task<IActionResult> Index()
         {
             var project = await _unitOfWork.EmployeeAssignment.GetEmployeeProjectAssignment();
@@ -29,6 +31,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpGet]
         [OrbitaAuthorize(Permissions.EmployeeProjectAssignment.Upsert)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Upsert} EmployeeProjectAssignment")]
         public async Task<IActionResult> Upsert(string id)
         {
             var assignment = new EmployeeAssignmentVM();
@@ -52,6 +56,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [OrbitaAuthorize(Permissions.EmployeeProjectAssignment.Upsert)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Upsert} EmployeeProjectAssignment")]
         public async Task<IActionResult> Upsert(string projectId, string selectedEmployeeIds)
         {
             if (projectId == null)
@@ -100,6 +106,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpPost]
         [OrbitaAuthorize(Permissions.EmployeeProjectAssignment.Delete)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Delete} EmployeeProjectAssignment")]
         public async Task<IActionResult> Delete(string id)
         {
             var model = await _unitOfWork.EmployeeAssignment.Get(id);

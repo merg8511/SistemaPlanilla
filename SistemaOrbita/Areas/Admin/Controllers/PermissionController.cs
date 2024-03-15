@@ -23,14 +23,15 @@ namespace SistemaOrbita.Areas.Admin.Controllers
 		{
 			var model = new PermissionVM();
 			var allPermissions = new List<RoleClaimsVM>();
-			allPermissions.GetPermissions(typeof(Permissions.Employee), id);
-			allPermissions.GetPermissions(typeof(Permissions.EmployeeHistory), id);
-			allPermissions.GetPermissions(typeof(Permissions.EmployeeProjectAssignment), id);
-			allPermissions.GetPermissions(typeof(Permissions.EventType), id);
-			allPermissions.GetPermissions(typeof(Permissions.OrganizationDepartment), id);
-			allPermissions.GetPermissions(typeof(Permissions.Position), id);
-			allPermissions.GetPermissions(typeof(Permissions.Project), id);
-
+			allPermissions.GetPermissions(typeof(Permissions.AuditLog), id); 
+			allPermissions.GetPermissions(typeof(Permissions.Employee), id); 
+			allPermissions.GetPermissions(typeof(Permissions.EmployeeHistory), id); 
+			allPermissions.GetPermissions(typeof(Permissions.EmployeeProjectAssignment), id); 
+			allPermissions.GetPermissions(typeof(Permissions.EventType), id); 
+			allPermissions.GetPermissions(typeof(Permissions.OrganizationDepartment), id); 
+			allPermissions.GetPermissions(typeof(Permissions.Position), id); 
+			allPermissions.GetPermissions(typeof(Permissions.Project), id); 
+			                                  
 			var role = await _roleManager.FindByIdAsync(id);
 			model.RoleId = id;
 			var claims = await _roleManager.GetClaimsAsync(role);
@@ -63,7 +64,7 @@ namespace SistemaOrbita.Areas.Admin.Controllers
 				await _roleManager.AddPermissionClaim(role, claim.Value);
 			}
 			TempData[DS.Success] = $"Successfully updated roles for {role.Name}";
-			return RedirectToAction("Index", new { id = model.RoleId });
+			return RedirectToAction("Index", new { roleId = model.RoleId });
 		}
 	}
 }

@@ -22,6 +22,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         }
 
         [OrbitaAuthorize(Permissions.Project.View)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_View} Project")]
         public IActionResult Index()
         {
             return View();
@@ -29,6 +31,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpGet]
         [OrbitaAuthorize(Permissions.Project.Upsert)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Upsert} Project")]
         public async Task<IActionResult> Upsert(string? id)
         {
             ProjectVM projectVM = new ProjectVM()
@@ -59,6 +63,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [OrbitaAuthorize(Permissions.Project.Upsert)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Upsert} Project")]
         public async Task<IActionResult> Upsert(ProjectVM projectVM)
         {
             if (ModelState.IsValid)
@@ -97,6 +103,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpGet]
         [OrbitaAuthorize(Permissions.Project.View)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_View} Project")]
         public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
@@ -117,6 +125,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpPost]
         [OrbitaAuthorize(Permissions.Project.Delete)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Delete} Project")]
         public async Task<IActionResult> Delete(string? id)
         {
             var model = await _unitOfWork.Project.Get(id);

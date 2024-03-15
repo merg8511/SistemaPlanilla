@@ -32,6 +32,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         }
 
         [OrbitaAuthorize(Permissions.Employee.View)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_View} Employees")]
         public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
@@ -50,6 +52,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpGet]
         [OrbitaAuthorize(Permissions.Employee.Upsert)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Upsert} Employees")]
         public async Task<IActionResult> Upsert(string? id)
         {
             EmployeeVM employeeVM = new EmployeeVM()
@@ -79,6 +83,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [OrbitaAuthorize(Permissions.Employee.Upsert)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Upsert} Employees")]
         public async Task<IActionResult> Upsert(EmployeeVM employeeVM)
         {
             if (ModelState.IsValid)
@@ -199,6 +205,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpPost]
         [OrbitaAuthorize(Permissions.Employee.Delete)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Delete} Employees")]
         public async Task<IActionResult> Delete(string? id)
         {
             var model = await _unitOfWork.Employee.Get(id);

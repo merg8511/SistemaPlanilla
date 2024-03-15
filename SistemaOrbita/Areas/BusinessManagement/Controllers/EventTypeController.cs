@@ -21,6 +21,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         }
 
         [OrbitaAuthorize(Permissions.EventType.View)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_View} EventType")]
         public IActionResult Index()
         {
             return View();
@@ -28,6 +30,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpGet]
         [OrbitaAuthorize(Permissions.EventType.Upsert)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Upsert} EventType")]
         public async Task<IActionResult> Upsert(string? id)
         {
             EventType model = new EventType();
@@ -51,6 +55,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [OrbitaAuthorize(Permissions.EventType.Upsert)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Upsert} EventType")]
         public async Task<IActionResult> Upsert(EventType model)
         {
             if (ModelState.IsValid)
@@ -87,6 +93,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpPost]
         [OrbitaAuthorize(Permissions.EventType.Delete)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Delete} EventType")]
         public async Task<IActionResult> Delete(string id)
         {
             var model = await _unitOfWork.EventType.Get(id);

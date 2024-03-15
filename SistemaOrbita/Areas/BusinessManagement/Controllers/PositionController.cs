@@ -21,6 +21,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         }
 
         [OrbitaAuthorize(Permissions.Position.View)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_View} Position")]
         public IActionResult Index()
         {
             return View();
@@ -28,6 +30,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpGet]
         [OrbitaAuthorize(Permissions.Position.Upsert)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Upsert} Position")]
         public async Task<IActionResult> Upsert(string? id)
         {
             PositionVM positionVM = new PositionVM()
@@ -56,6 +60,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [OrbitaAuthorize(Permissions.Position.Upsert)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Upsert} Position")]
         public async Task<IActionResult> Upsert(PositionVM positionVM)
         {
             if (ModelState.IsValid)
@@ -96,6 +102,8 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpPost]
         [OrbitaAuthorize(Permissions.Position.Delete)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Delete} Position")]
         public async Task<IActionResult> Delete(string id)
         {
             var position = await _unitOfWork.Position.Get(id);

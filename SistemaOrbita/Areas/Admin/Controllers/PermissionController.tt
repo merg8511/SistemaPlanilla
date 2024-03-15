@@ -41,15 +41,15 @@ namespace SistemaOrbita.Areas.Admin.Controllers
 		{
 			_roleManager = roleManager;
 		}
-		public async Task<ActionResult> Index(string roleId)
+		public async Task<ActionResult> Index(string id)
 		{
 			var model = new PermissionVM();
 			var allPermissions = new List<RoleClaimsVM>();
 			<# foreach (var modelClass in modelClasses) { #>
-allPermissions.GetPermissions(typeof(Permissions.<#= modelClass #>), roleId); 
+allPermissions.GetPermissions(typeof(Permissions.<#= modelClass #>), id); 
 			<# } #>                                  
-			var role = await _roleManager.FindByIdAsync(roleId);
-			model.RoleId = roleId;
+			var role = await _roleManager.FindByIdAsync(id);
+			model.RoleId = id;
 			var claims = await _roleManager.GetClaimsAsync(role);
 			var allClaimValues = allPermissions.Select(a => a.Value).ToList();
 			var roleClaimValues = claims.Select(a => a.Value).ToList();

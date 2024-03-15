@@ -19,6 +19,12 @@ namespace SistemaOrbita.Web.Areas.Identity.Data
 			};
 		}
 
+		public static class AuditLog
+		{
+			public const string View = "Permissions.AuditLog.View";
+			public const string Upsert = "Permissions.AuditLog.Upsert";
+			public const string Delete = "Permissions.AuditLog.Delete";
+		}
 		public static class Department
 		{
 			public const string View = "Permissions.Department.View";
