@@ -138,6 +138,7 @@ function loadDataTable() {
                 "width": "15%"
             }
         ],
+        "responsive": "true",
         "dom": 'l<"d-flex float-right"f><"border-1 border-white"B>rtip', // l = length changing input, B = buttons, f = filtering input, r = processing display element, t = table, i = information summary, p = pagination control
 
         "buttons": [

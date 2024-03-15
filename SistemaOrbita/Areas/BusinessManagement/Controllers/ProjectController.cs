@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Build.Evaluation;
+using SistemaOrbita.ActionFilters;
 using SistemaOrbita.DAL.Repository.IRepository;
 using SistemaOrbita.Model.Models;
 using SistemaOrbita.Model.ViewModels;
 using SistemaOrbita.Utilities;
+using SistemaOrbita.Web.Areas.Identity.Data;
 
 namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 {
     [Area("BusinessManagement")]
+    [Authorize]
     public class ProjectController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -17,12 +21,14 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [OrbitaAuthorize(Permissions.Project.View)]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
+        [OrbitaAuthorize(Permissions.Project.Upsert)]
         public async Task<IActionResult> Upsert(string? id)
         {
             ProjectVM projectVM = new ProjectVM()
@@ -52,6 +58,7 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OrbitaAuthorize(Permissions.Project.Upsert)]
         public async Task<IActionResult> Upsert(ProjectVM projectVM)
         {
             if (ModelState.IsValid)
@@ -89,6 +96,7 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         }
 
         [HttpGet]
+        [OrbitaAuthorize(Permissions.Project.View)]
         public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
@@ -108,6 +116,7 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
 
         [HttpPost]
+        [OrbitaAuthorize(Permissions.Project.Delete)]
         public async Task<IActionResult> Delete(string? id)
         {
             var model = await _unitOfWork.Project.Get(id);

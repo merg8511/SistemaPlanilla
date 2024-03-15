@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SistemaOrbita.ActionFilters;
 using SistemaOrbita.DAL.Repository.IRepository;
 using SistemaOrbita.Model.Models;
 using SistemaOrbita.Utilities;
+using SistemaOrbita.Web.Areas.Identity.Data;
 using System.Security.Claims;
 
 namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 {
     [Area("BusinessManagement")]
+    [Authorize]
     public class OrganizationDepartmentController : Controller
     {
 
@@ -16,12 +20,18 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [OrbitaAuthorize(Permissions.OrganizationDepartment.View)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_View} organizaciones")]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
+        [OrbitaAuthorize(Permissions.OrganizationDepartment.Upsert)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Upsert} organizaciones")]
         public async Task<IActionResult> Upsert(string? id)
         {
             OrganizationDepartment model = new OrganizationDepartment();
@@ -44,6 +54,9 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OrbitaAuthorize(Permissions.OrganizationDepartment.Upsert)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Upsert} organizaciones")]
         public async Task<IActionResult> Upsert(OrganizationDepartment model)
         {
             if (ModelState.IsValid)
@@ -79,6 +92,9 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         }
 
         [HttpPost]
+        [OrbitaAuthorize(Permissions.OrganizationDepartment.Delete)]
+        [ServiceFilter(typeof(AuditLogFilter))]
+        [Audit($"{DS.Audit_Delete} organizaciones")]
         public async Task<IActionResult> Delete(string id)
         {
             var model = await _unitOfWork.OrganizationDepartment.Get(id);

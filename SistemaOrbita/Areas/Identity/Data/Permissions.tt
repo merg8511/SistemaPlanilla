@@ -1,0 +1,92 @@
+// This is an auto-generated file.
+<#@ template language="C#" hostSpecific="true" debug="True" #>
+<#@ output extension="cs" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="EnvDte" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System" #>
+<#
+  var visualStudio = (this.Host as IServiceProvider).GetService(typeof(EnvDTE.DTE)) as EnvDTE.DTE;
+  var project = visualStudio.Solution.FindProjectItem(this.Host.TemplateFile).ContainingProject as EnvDTE.Project;
+
+  string root = Host.ResolvePath("");
+#>
+
+
+namespace SistemaOrbita.Web.Areas.Identity.Data
+{
+
+	public static class Permissions
+	{
+
+
+<#
+// Define the list of permissions
+var permissions = new List<string>
+{
+	"View",
+	"Upsert",
+	"Delete"
+}; 
+
+
+var modelClasses = ListFiles("/../../../../SistemaOrbita.Model/Models", "cs"); 
+
+#>
+
+		public static List<string> GeneratePermissionsForModule(string module)
+		{
+			return new List<string>()
+			{
+		<#
+		foreach (var permission in permissions){
+		#>
+			$"Permissions.{module}.<#= permission #>",
+		<#
+		}
+		#>
+	};
+		}
+
+	<#
+	foreach (var modelClass in modelClasses)
+	{
+	#>
+	public static class <#= modelClass #>
+		{
+	<# foreach (var permission in permissions){ #>
+		public const string <#= permission #> = "Permissions.<#= modelClass #>.<#= permission #>";
+	<# } #>
+	}
+	<# } #>
+}
+
+}
+
+<#
+
+	List<string> ListFiles(string path, string fileType)
+	{
+		var root = Host.ResolvePath("");
+		List<string> models = new List<string>();
+		var fileNames = Directory.EnumerateFiles(root + path, "*." + fileType, SearchOption.AllDirectories)
+			.Where(f => !f.EndsWith("OrbitaContext.cs"))
+			.Select(f => f.Replace("\\", "/"))
+			.Select(f => "~" + f.Substring(root.Length))
+			.OrderBy(f => f)
+			.ToList();
+
+		foreach(string fileName in fileNames)
+		{
+			models.Add($"{Path.GetFileNameWithoutExtension(fileName)}");
+		}
+
+		return models;
+	}
+
+#>
+
+

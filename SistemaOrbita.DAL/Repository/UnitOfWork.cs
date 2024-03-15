@@ -18,6 +18,7 @@ namespace SistemaOrbita.DAL.Repository
         public IProjectRepository Project { get; private set; }
         public IEmployeeHistoryRepository EmployeeHistory { get; private set; }
         public IEPAssignmentRepository EmployeeAssignment { get; private set; }
+        public IAuditLogRepository AuditLog { get; private set; }
 
         public UnitOfWork(OrbitaDbContext context)
         {
@@ -29,6 +30,7 @@ namespace SistemaOrbita.DAL.Repository
             Project = new ProjectRepository(_context);
             EmployeeHistory = new EmployeeHistoryRepository(_context);
             EmployeeAssignment = new EPAssignmentRepository(_context);
+            AuditLog = new AuditLogRepository(_context);
         }
 
         public void Dispose()

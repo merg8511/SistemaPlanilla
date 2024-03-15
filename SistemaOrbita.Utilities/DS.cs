@@ -12,6 +12,12 @@ namespace SistemaOrbita.Utilities
         public const string Error = "Error";
 
         public const string Role_Admin = "Admin";
-        public const string Role_Employee = "Employee";
+        public const string Role_Owner = "Dueño";
+        public const string Role_Employee = "Empleado";
+        public const string Role_Secretary = "Secretario";
+
+        public const string Audit_Delete = "Eliminar";
+        public const string Audit_View = "Ver";
+        public const string Audit_Upsert = "Upsert";
     }
 }

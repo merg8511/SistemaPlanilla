@@ -69,7 +69,7 @@ function loadDataTable() {
                 "width": "8%"
             }
         ],
-
+        "responsive": "true",
         "dom": 'l<"d-flex float-right"f>Brtip', // l = length changing input, B = buttons, f = filtering input, r = processing display element, t = table, i = information summary, p = pagination control
 
         "buttons": [

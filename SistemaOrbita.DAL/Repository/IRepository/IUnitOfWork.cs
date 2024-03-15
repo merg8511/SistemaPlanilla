@@ -15,6 +15,7 @@ namespace SistemaOrbita.DAL.Repository.IRepository
         IProjectRepository Project { get; }
         IEmployeeHistoryRepository EmployeeHistory { get; }
         IEPAssignmentRepository EmployeeAssignment { get; }
+        IAuditLogRepository AuditLog { get; }
         Task Save();
     }
 }

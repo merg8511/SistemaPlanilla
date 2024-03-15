@@ -4,7 +4,21 @@
     ViewData["Title"] = "Access denied";
 }
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
-</header>
+<div class="text-center">
+    <p class="lead">
+        <div>
+            <img src="~/img/pages/undraw_access_denied_re_awnf.svg" class="text-center w-25" />
+        </div>
+        <div class="mt-3">
+            <h3>You do not have permission to access this page.</h3>
+        </div>
+    </p>
+    <hr>
+    <p>
+        You do not have permissions to access the requested page. Check the URL or return to the home page.
+    </p>
+    <p>
+        If you need access, contact the system administrator.
+    </p>
+    <a href="/BusinessManagement/Home" class="btn btn-primary">Back to home</a>
+</div>
