@@ -1,11 +1,19 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SistemaOrbita.ActionFilters;
 using SistemaOrbita.DAL;
 using SistemaOrbita.DAL.Data;
 using SistemaOrbita.DAL.Repository;
 using SistemaOrbita.DAL.Repository.IRepository;
+using SistemaOrbita.Permission;
+using SistemaOrbita.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+builder.Services.AddScoped<AuditLogFilter>();
 
 // Add services to the container.
 var orbitaConnectionString = builder.Configuration.GetConnectionString("OrbitaDB") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -63,7 +71,7 @@ builder.Services.AddAuthentication()
             options.Cookie.HttpOnly = true;
             options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
             options.LoginPath = "/Identity/Account/Login";
-            options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+            options.AccessDeniedPath = "/BusinessManagement/Home/Error/{403}";
             options.SlidingExpiration = true;
         });
 
@@ -73,8 +81,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 {
     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     options.Cookie.HttpOnly = true;
-    options.LoginPath = "/Identity/Account/Login"; ;
-    options.LogoutPath = "/Identity/Account/AccessDenied"; ;
+    options.LoginPath = "/Identity/Account/Login";
+    options.LogoutPath = "/Identity/Account/Logout";
     options.SlidingExpiration = true;
 });
 

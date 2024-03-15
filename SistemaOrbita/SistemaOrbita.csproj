@@ -66,13 +66,41 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.12" />
-    <PackageReference Include="NUlid" Version="1.7.1" />
+    <PackageReference Include="NUlid" Version="1.7.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SistemaOrbita.DAL\SistemaOrbita.DAL.csproj" />
     <ProjectReference Include="..\SistemaOrbita.Model\SistemaOrbita.Model.csproj" />
     <ProjectReference Include="..\SistemaOrbita.Utilities\SistemaOrbita.Utilities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Areas\Admin\Controllers\PermissionController.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PermissionController.cs</LastGenOutput>
+    </None>
+    <None Update="Areas\Identity\Data\Permissions.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Permissions.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Areas\Admin\Controllers\PermissionController.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PermissionController.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Areas\Identity\Data\Permissions.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Permissions.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

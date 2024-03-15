@@ -17,6 +17,7 @@
 appsettings.json
 obj/
 bin/
+Certificates/
 
 # Mono auto generated files
 mono_crash.*

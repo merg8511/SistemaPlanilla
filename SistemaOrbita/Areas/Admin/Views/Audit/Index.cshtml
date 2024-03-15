@@ -1,0 +1,77 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+@model SistemaOrbita.Model.ViewModels.AuditLogVM;
+@{
+    ViewData["Title"] = "AuditLog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var pageTitle = new PageTitleViewModel
+            {
+                Title = "Audit logs",
+                Breadcrumbs = new List<BreadcrumbItem>
+                {
+                    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+                    new BreadcrumbItem { Text = "Audit Log", Area = "Admin", Controller = "Audit", Action = "Index" },
+                }
+            };
+}
+<partial name="_PageTitle" model="@pageTitle" />
+
+<div id="container-fluid">
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col text-center">
+                <label>User</label>
+                <select class="form-select" asp-items="Model.Users" id="users_id">
+                    <option value="all">All users</option>
+                </select>
+            </div>
+            <div class="col text-center">
+                <label>Start Date</label>
+                <input type="date" class="form-control" id="start_date" />
+            </div>
+            <div class="col text-center">
+                <label>End Date</label>
+                <input type="date" class="form-control" id="end_date" />
+            </div>
+            <div class="col d-flex justify-content-center align-items-end">
+                <button type="button" class="btn btn-primary btn-block" id="btn-save"><i class="bi bi-search"></i> Search</button>
+            </div>
+
+        </div>
+        </div>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Date</th>
+                                <th>Controller</th>
+                                <th>Action</th>
+                                <th>Changes</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>User</th>
+                                <th>Date</th>
+                                <th>Controller</th>
+                                <th>Action</th>
+                                <th>Changes</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section Scripts{
+        <script src="~/js/pages/audit-log.js"></script>
+    }

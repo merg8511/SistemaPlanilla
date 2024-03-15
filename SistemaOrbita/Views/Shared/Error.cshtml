@@ -63,7 +63,31 @@ else if (statusCode == 403)
 
 }
 
-else {
+else if (statusCode == 503)
+{
+    <div class="text-center">
+        <p class="lead">
+            <div>
+                <img src="~/img/pages/undraw_maintenance_re_59vn.svg" class="text-center w-25" />
+            </div>
+            <div class="mt-3">
+                <h3>@statusMessage</h3>
+            </div>
+        </p>
+        <hr>
+        <p>
+            We are working to improve the site, sorry for the inconvenience.
+        </p>
+
+        <div class="alert alert-warning" role="alert">
+            <strong>Requisition ID:</strong> @requestId
+        </div>
+        <a href="/BusinessManagement/Home" class="btn btn-primary">Back to home</a>
+    </div>
+}
+
+else
+{
     <div class="text-center">
         <p class="lead">
             <div>

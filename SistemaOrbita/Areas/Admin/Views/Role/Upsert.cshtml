@@ -1,0 +1,73 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+@model Microsoft.AspNetCore.Identity.IdentityRole;
+
+@{
+    ViewData["Title"] = "Upsert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Create Role";
+}
+
+<section class="section">
+    @{
+        var pageTitle = new PageTitleViewModel
+            {
+                Title = string.IsNullOrEmpty(Model.Name) ? "Create" : "Update",
+                Breadcrumbs = new List<BreadcrumbItem>
+    {
+    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+    new BreadcrumbItem { Text = "Role list", Area = "Admin", Controller = "Role", Action = "Index" },
+    }
+            };
+    }
+    <partial name="_PageTitle" model="@pageTitle" />
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-8">
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- Advanced Form Elements -->
+                    <form method="post">
+                        @if (!string.IsNullOrEmpty(Model.Name))
+                        {
+                            title = "Update Role";
+                            <input type="hidden" name="type" value="1" />
+                        }
+                        else
+                        {
+                            <input type="hidden" name="type" value="0" />
+                        }
+                        <h4 class="card-title mb-3">@title</h4>
+
+                        <div class="row border-0">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id" id="Id" />
+                        </div>
+
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-sm-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" asp-for="Name" class="form-control validate-name" id="floatingInput" placeholder="">
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                    <label for="floatingInput">Role name</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            @if (string.IsNullOrEmpty(Model.Id))
+                            {
+                                <partial name="_AddBackButtons" />
+                            }
+                            else
+                            {
+                                <partial name="_UpdateBackButtons" model="Model.Id" />
+                            }
+                        </div>
+                    </form><!-- End General Form Elements -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>

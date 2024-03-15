@@ -2,14 +2,12 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace SistemaOrbita.Model.Models;
 
 public partial class Position
 {
     public string Id { get; set; }
-
     public sbyte? IsActive { get; set; }
 
     public DateTime? CreatedAt { get; set; }

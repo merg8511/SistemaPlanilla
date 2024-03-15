@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SistemaOrbita.ActionFilters;
 using SistemaOrbita.DAL.Repository.IRepository;
 using SistemaOrbita.Model.Models;
 using SistemaOrbita.Utilities;
+using SistemaOrbita.Web.Areas.Identity.Data;
 using System.Security.Claims;
 
 namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 {
     [Area("BusinessManagement")]
+    [Authorize]
     public class EventTypeController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -16,12 +20,14 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [OrbitaAuthorize(Permissions.EventType.View)]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
+        [OrbitaAuthorize(Permissions.EventType.Upsert)]
         public async Task<IActionResult> Upsert(string? id)
         {
             EventType model = new EventType();
@@ -44,6 +50,7 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OrbitaAuthorize(Permissions.EventType.Upsert)]
         public async Task<IActionResult> Upsert(EventType model)
         {
             if (ModelState.IsValid)
@@ -79,6 +86,7 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         }
 
         [HttpPost]
+        [OrbitaAuthorize(Permissions.EventType.Delete)]
         public async Task<IActionResult> Delete(string id)
         {
             var model = await _unitOfWork.EventType.Get(id);

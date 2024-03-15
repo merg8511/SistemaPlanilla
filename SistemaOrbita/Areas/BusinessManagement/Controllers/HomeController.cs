@@ -39,10 +39,11 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
                     404 => "The requested page was not found.",
                     403 => "You do not have permission to access this page.",
                     500 => "Internal server error.",
+                    503 => "This page is under construction. Come back soon!",
                     _ => "An unexpected error occurred."
                 }
             };
             return View(model);
-        }
+        }      
     }
 }

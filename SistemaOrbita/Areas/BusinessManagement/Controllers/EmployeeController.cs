@@ -1,16 +1,20 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using NuGet.Protocol.Plugins;
+using SistemaOrbita.ActionFilters;
 using SistemaOrbita.DAL.Repository.IRepository;
 using SistemaOrbita.Model.Models;
 using SistemaOrbita.Model.ViewModels;
 using SistemaOrbita.Utilities;
+using SistemaOrbita.Web.Areas.Identity.Data;
 using System.Security.Claims;
 
 namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 {
+    [Authorize]
     [Area("BusinessManagement")]
     public class EmployeeController : Controller
     {
@@ -21,11 +25,13 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [OrbitaAuthorize(Permissions.Employee.View)]
         public IActionResult Index()
         {
             return View();
         }
 
+        [OrbitaAuthorize(Permissions.Employee.View)]
         public async Task<IActionResult> Details(string? id)
         {
             if (id == null)
@@ -43,6 +49,7 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         }
 
         [HttpGet]
+        [OrbitaAuthorize(Permissions.Employee.Upsert)]
         public async Task<IActionResult> Upsert(string? id)
         {
             EmployeeVM employeeVM = new EmployeeVM()
@@ -71,6 +78,7 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OrbitaAuthorize(Permissions.Employee.Upsert)]
         public async Task<IActionResult> Upsert(EmployeeVM employeeVM)
         {
             if (ModelState.IsValid)
@@ -190,6 +198,7 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         }
 
         [HttpPost]
+        [OrbitaAuthorize(Permissions.Employee.Delete)]
         public async Task<IActionResult> Delete(string? id)
         {
             var model = await _unitOfWork.Employee.Get(id);

@@ -14,6 +14,8 @@ public partial class OrbitaDbContext : DbContext
     {
     }
 
+    public virtual DbSet<AuditLog> AuditLogs { get; set; }
+
     public virtual DbSet<Department> Departments { get; set; }
 
     public virtual DbSet<Employee> Employees { get; set; }
@@ -39,6 +41,26 @@ public partial class OrbitaDbContext : DbContext
         modelBuilder
             .UseCollation("utf8mb4_0900_ai_ci")
             .HasCharSet("utf8mb4");
+
+        modelBuilder.Entity<AuditLog>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("audit_log");
+
+            entity.Property(e => e.Id)
+                .HasMaxLength(45)
+                .HasColumnName("id");
+            entity.Property(e => e.ActionType).HasColumnName("action_type");
+            entity.Property(e => e.ChangeDate)
+                .HasColumnType("datetime")
+                .HasColumnName("change_date");
+            entity.Property(e => e.Changes).HasColumnName("changes");
+            entity.Property(e => e.EntityType).HasColumnName("entity_type");
+            entity.Property(e => e.UserId)
+                .HasMaxLength(255)
+                .HasColumnName("user_id");
+        });
 
         modelBuilder.Entity<Department>(entity =>
         {

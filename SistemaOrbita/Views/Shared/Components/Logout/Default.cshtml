@@ -14,7 +14,7 @@
                 @{
                     if (User.Identity.IsAuthenticated)
                     {
-                        <form method="post" id="logout" class="form-horizontal mb-lg" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" novalidate="novalidate">
+                        <form method="post" id="logout" class="form-horizontal mb-lg" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/BusinessManagement", new { area = "", controller = "Home", action = "Index" })" novalidate="novalidate">
                             <input type="hidden" name="__RequestVerificationToken" value="@Html.Raw(ViewContext.HttpContext.Request.Cookies["XSRF-TOKEN"])">
                             <button type="submit" class="btn btn-primary modal-bs-confirm" id="submitLogout">Logout</button>
                             <button type="button" class="btn btn-default modal-bs-dismiss" data-bs-dismiss="modal">Cancel</button>

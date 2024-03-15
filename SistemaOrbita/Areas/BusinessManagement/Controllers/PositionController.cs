@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SistemaOrbita.ActionFilters;
 using SistemaOrbita.DAL.Repository.IRepository;
 using SistemaOrbita.Model.Models;
 using SistemaOrbita.Model.ViewModels;
 using SistemaOrbita.Utilities;
+using SistemaOrbita.Web.Areas.Identity.Data;
 
 namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 {
@@ -18,12 +20,14 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
             _unitOfWork = unitOfWork;
         }
 
+        [OrbitaAuthorize(Permissions.Position.View)]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
+        [OrbitaAuthorize(Permissions.Position.Upsert)]
         public async Task<IActionResult> Upsert(string? id)
         {
             PositionVM positionVM = new PositionVM()
@@ -51,6 +55,7 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [OrbitaAuthorize(Permissions.Position.Upsert)]
         public async Task<IActionResult> Upsert(PositionVM positionVM)
         {
             if (ModelState.IsValid)
@@ -88,7 +93,9 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
             return Json(new { data = all });
         }
 
+
         [HttpPost]
+        [OrbitaAuthorize(Permissions.Position.Delete)]
         public async Task<IActionResult> Delete(string id)
         {
             var position = await _unitOfWork.Position.Get(id);

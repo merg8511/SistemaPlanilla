@@ -1,0 +1,109 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+@model SistemaOrbita.Model.ViewModels.UserVM
+
+@{
+    ViewData["Title"] = "Upsert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Create user";
+}
+
+<section class="section">
+@{
+        var pageTitle = new PageTitleViewModel
+            {
+                Title = Model.User.Id == null ? "Create" : "Update",
+                Breadcrumbs = new List<BreadcrumbItem>
+    {
+    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+    new BreadcrumbItem { Text = "User", Area = "Admin", Controller = "User", Action = "Index" },
+    }
+            };
+    }
+    <partial name="_PageTitle" model="@pageTitle" />
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-8">
+
+            <div class="card">
+                <div class="card-body">
+                    <!-- Advanced Form Elements -->
+                    <form method="post">
+                        <input type="hidden" asp-for="Type" value="@Model.Type" />
+                        @if (Model.Type == 1)
+                        {
+                            title = "Update user";
+                            <input type="hidden" asp-for="User.Id" id="Id" />
+                        }
+                        <h4 class="card-title mb-3">@title</h4>
+
+                        <div class="row border-0">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        </div>
+
+                        <div class="row mb-3 justify-content-center">
+                            <div class="col-sm-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" asp-for="User.UserName" class="form-control" id="floatingInput" placeholder="">
+                                    <span asp-validation-for="User.UserName" class="text-danger"></span>
+                                    <label for="floatingInput">User name</label>
+                                </div>
+                                
+                                <div class="form-floating mb-3">
+                                    <input type="text" asp-for="User.Email" class="form-control" id="floatingInputEmail" placeholder="">
+                                    <span asp-validation-for="User.Email" class="text-danger"></span>
+                                    <label for="floatingInput">Email</label>
+                                </div>
+                               
+                                <div class="form-floating mb-3">
+                                    <input type="text" asp-for="User.PhoneNumber" class="form-control" id="floatingInputPhone" placeholder="">
+                                    <span asp-validation-for="User.PhoneNumber" class="text-danger"></span>
+                                    <label for="floatingInput">Phone number</label>
+                                </div>
+                               
+                                <div class="form-floating mb-3">
+                                    <input type="password" asp-for="Password" class="form-control" id="password" placeholder=" ">
+                                    <label for="password">Password</label>
+                                </div>
+                                <div class="progress" style="height: 20px;">
+                                    <div id="passwordStrengthProgress" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div id="passwordStrengthText" class="mt-2"></div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="confirmPassword" placeholder=" ">
+                                    <label for="confirmPassword">Confirm Password</label>
+                                </div>
+                                <div id="passwordMatchText" class="mt-2"></div>
+
+                                
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="floatingSelect" aria-label="Choose a state" asp-for="RoleId" asp-items="Model.Roles">
+                                        <option selected>Select rol</option>
+                                    </select>
+                                    <label for="floatingSelect">Select a status</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            @if (string.IsNullOrEmpty(Model.User.Id))
+                            {
+                                <partial name="_AddBackButtons" />
+                            }
+                            else
+                            {
+                                <partial name="_UpdateBackButtons" model="Model.User.Id" />
+                            }
+                        </div>
+                    </form><!-- End General Form Elements -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/pages/user.js"></script>
+}
