@@ -64,7 +64,7 @@ namespace SistemaOrbita.Areas.Admin.Controllers
 				await _roleManager.AddPermissionClaim(role, claim.Value);
 			}
 			TempData[DS.Success] = $"Successfully updated roles for {role.Name}";
-			return RedirectToAction("Index", new { roleId = model.RoleId });
+			return RedirectToAction("Index", new { id = model.RoleId });
 		}
 	}
 }
