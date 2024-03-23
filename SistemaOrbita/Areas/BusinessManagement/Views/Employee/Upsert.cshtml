@@ -78,6 +78,11 @@
                                             <input type="date" asp-for="Employee.Birthday" class="form-control w-75" aria-label="Birthday" aria-describedby="basic-addon1">
                                             <span asp-validation-for="Employee.Birthday" class="text-danger"></span>
                                         </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" asp-for="Employee.Dui" class="form-control" id="floatingInput" placeholder="John">
+                                            <label for="floatingInput">Dui without dashes</label>
+                                            <span asp-validation-for="Employee.Dui" class="text-danger"></span>
+                                        </div>
                                         @if (!string.IsNullOrEmpty(Model.Employee.Id))
                                         {
                                             <div class="form-floating mb-3">

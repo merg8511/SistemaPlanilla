@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿$(function () {
     $("#btn-save").on('click', function () {
         var userId = $("#users_id option:selected").text();
         var startDate = $("#start_date").val();

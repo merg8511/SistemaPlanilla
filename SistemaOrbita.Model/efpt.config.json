@@ -1,5 +1,5 @@
 ﻿{
-   "CodeGenerationMode": 3,
+   "CodeGenerationMode": 4,
    "ContextClassName": "OrbitaDbContext",
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
@@ -7,7 +7,7 @@
    "IncludeConnectionString": false,
    "ModelNamespace": null,
    "OutputContextPath": "..\/SistemaOrbita.DAL\/Data",
-   "OutputPath": "Models",
+   "OutputPath": "ModelsF",
    "PreserveCasingWithRegex": true,
    "ProjectRootNamespace": "SistemaOrbita.Model",
    "Schemas": null,
@@ -15,6 +15,10 @@
    "SelectedToBeGenerated": 0,
    "T4TemplatePath": null,
    "Tables": [
+      {
+         "Name": "audit_log",
+         "ObjectType": 0
+      },
       {
          "Name": "department",
          "ObjectType": 0
@@ -32,11 +36,23 @@
          "ObjectType": 0
       },
       {
+         "Name": "employer",
+         "ObjectType": 0
+      },
+      {
+         "Name": "event_log",
+         "ObjectType": 0
+      },
+      {
          "Name": "event_type",
          "ObjectType": 0
       },
       {
          "Name": "gender",
+         "ObjectType": 0
+      },
+      {
+         "Name": "income_tax_bracket",
          "ObjectType": 0
       },
       {
@@ -53,6 +69,10 @@
       },
       {
          "Name": "project",
+         "ObjectType": 0
+      },
+      {
+         "Name": "quotation_type",
          "ObjectType": 0
       }
    ],

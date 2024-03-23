@@ -27,6 +27,7 @@ namespace SistemaOrbita.DAL.Repository
             {
                 entity.FirstName = employee.FirstName;
                 entity.LastName = employee.LastName;
+                entity.Dui = employee.Dui;
                 entity.Birthday = employee.Birthday;
                 entity.EndDate = employee.EndDate;
                 entity.Address = employee.Address;

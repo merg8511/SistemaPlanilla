@@ -5,15 +5,19 @@ using System.Collections.Generic;
 
 namespace SistemaOrbita.Model.Models;
 
-public partial class EventType
+public partial class QuotationType
 {
     public string Id { get; set; }
 
-    public string CreatedBy { get; set; }
+    public string Name { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public decimal? EmployeePercentage { get; set; }
+
+    public decimal? EmployerPercentage { get; set; }
 
     public sbyte? IsActive { get; set; }
 
-    public virtual ICollection<EventLog> EventLogs { get; set; } = new List<EventLog>();
+    public DateTime? CreatedAt { get; set; }
+
+    public string CreatedBy { get; set; }
 }

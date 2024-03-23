@@ -1,5 +1,5 @@
 ﻿{
-   "CodeGenerationMode": 3,
+   "CodeGenerationMode": 4,
    "ContextClassName": "OrbitaDbContext",
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
@@ -36,11 +36,23 @@
          "ObjectType": 0
       },
       {
+         "Name": "employer",
+         "ObjectType": 0
+      },
+      {
+         "Name": "event_log",
+         "ObjectType": 0
+      },
+      {
          "Name": "event_type",
          "ObjectType": 0
       },
       {
          "Name": "gender",
+         "ObjectType": 0
+      },
+      {
+         "Name": "income_tax_bracket",
          "ObjectType": 0
       },
       {
@@ -57,6 +69,10 @@
       },
       {
          "Name": "project",
+         "ObjectType": 0
+      },
+      {
+         "Name": "quotation_type",
          "ObjectType": 0
       }
    ],

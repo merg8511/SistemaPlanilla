@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿$(function () {
     loadDataTable();
     initializeSelect2ForMunicipality();
     setupSliderAndInput();

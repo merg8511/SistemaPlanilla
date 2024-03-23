@@ -19,6 +19,9 @@ namespace SistemaOrbita.DAL.Repository
         public IEmployeeHistoryRepository EmployeeHistory { get; private set; }
         public IEPAssignmentRepository EmployeeAssignment { get; private set; }
         public IAuditLogRepository AuditLog { get; private set; }
+        public IEmployerRepository Employer { get; private set; }
+        public IQuotationTypeRepository QuotationType { get; private set; }
+        public IIncomeTaxBracketRepository IncomeTaxBracket { get; private set; }
 
         public UnitOfWork(OrbitaDbContext context)
         {
@@ -31,6 +34,9 @@ namespace SistemaOrbita.DAL.Repository
             EmployeeHistory = new EmployeeHistoryRepository(_context);
             EmployeeAssignment = new EPAssignmentRepository(_context);
             AuditLog = new AuditLogRepository(_context);
+            Employer = new EmployerRepository(_context);
+            QuotationType = new QuotationTypeRepository(_context);
+            IncomeTaxBracket = new IncomeTaxBracketRepository(_context);
         }
 
         public void Dispose()

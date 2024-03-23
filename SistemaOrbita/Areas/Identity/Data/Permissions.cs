@@ -49,6 +49,18 @@ namespace SistemaOrbita.Web.Areas.Identity.Data
 			public const string Upsert = "Permissions.EmployeeProjectAssignment.Upsert";
 			public const string Delete = "Permissions.EmployeeProjectAssignment.Delete";
 		}
+		public static class Employer
+		{
+			public const string View = "Permissions.Employer.View";
+			public const string Upsert = "Permissions.Employer.Upsert";
+			public const string Delete = "Permissions.Employer.Delete";
+		}
+		public static class EventLog
+		{
+			public const string View = "Permissions.EventLog.View";
+			public const string Upsert = "Permissions.EventLog.Upsert";
+			public const string Delete = "Permissions.EventLog.Delete";
+		}
 		public static class EventType
 		{
 			public const string View = "Permissions.EventType.View";
@@ -60,6 +72,12 @@ namespace SistemaOrbita.Web.Areas.Identity.Data
 			public const string View = "Permissions.Gender.View";
 			public const string Upsert = "Permissions.Gender.Upsert";
 			public const string Delete = "Permissions.Gender.Delete";
+		}
+		public static class IncomeTaxBracket
+		{
+			public const string View = "Permissions.IncomeTaxBracket.View";
+			public const string Upsert = "Permissions.IncomeTaxBracket.Upsert";
+			public const string Delete = "Permissions.IncomeTaxBracket.Delete";
 		}
 		public static class Municipality
 		{
@@ -84,6 +102,12 @@ namespace SistemaOrbita.Web.Areas.Identity.Data
 			public const string View = "Permissions.Project.View";
 			public const string Upsert = "Permissions.Project.Upsert";
 			public const string Delete = "Permissions.Project.Delete";
+		}
+		public static class QuotationType
+		{
+			public const string View = "Permissions.QuotationType.View";
+			public const string Upsert = "Permissions.QuotationType.Upsert";
+			public const string Delete = "Permissions.QuotationType.Delete";
 		}
 	}
 
