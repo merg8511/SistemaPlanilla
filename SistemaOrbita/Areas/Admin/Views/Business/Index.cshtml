@@ -1,0 +1,242 @@
+﻿@model SistemaOrbita.Model.Models.Employer
+@using SistemaOrbita.Model.ViewModels;
+@using SistemaOrbita.Utilities;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var pageTitle = new PageTitleViewModel
+            {
+                Title = "Configuration",
+                Breadcrumbs = new List<BreadcrumbItem>
+                {
+                    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+                    new BreadcrumbItem { Text = "Business", Area = "Admin", Controller = "Business", Action = "Index" },
+                }
+            };
+
+}
+<partial name="_PageTitle" model="@pageTitle" />
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Business</h6>
+                </div>
+                <div class="card-body">
+
+                    <form method="post" id="business-form">
+                        <input type="hidden" value="@Model.Id" name="Id" />
+                        <div class="mb-3 row">
+                            <label>Employer Name</label>
+                            <div class="col-sm-12">
+                                <input type="text" asp-for="Name" class="form-control" id="employer" value="@Model.Name" name="Name" />
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <label>Address</label>
+                            <div class="col-sm-12">
+                                <textarea type="text" asp-for="Address" class="form-control" id="address" name="Address"></textarea>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-md-5">
+                                <label>Select a payroll type:</label>
+                                <select name="PayrollType" asp-for="PayrollType" class="form-select form-control">
+                                    <option>Seleccione</option>
+                                    <option value="0">Quincenal</option>
+                                    <option value="1">Mensual</option>
+                                </select>
+                            </div>
+                            <div class="col-md-7">
+                                <label>select a type of liquidation:</label>
+                                <select name="LiquidationType" asp-for="LiquidationType" class="form-select form-control">
+                                    <option>Seleccione</option>
+                                    <option value="0">Anual</option>
+                                    <option value="1">Al finalizar contrato</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-md-6">
+                                <label>Economic Activity Code</label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="EconomicActivityCode" class="form-control" id="activity_code" name="EconomicActivityCode">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>Patronal ISSS number</label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="PatronalIsssNumber" class="form-control" id="isss_code" name="PatronalIsssNumber">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-md-6">
+                                <label>Patronal AFP number</label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="PatronalAfpNumber" class="form-control" id="afp_code" name="PatronalAfpNumber">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label>INPEP number</label>
+                                <div class="col-sm-8">
+                                    <input type="text" asp-for="PatronalInpepNumber" class="form-control" id="inpep_code" name="PatronalInpepNumber">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-md-12 text-center">
+                                <button class="btn btn-primary" id="btn-business">Save</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Quotes</h6>
+                </div>
+                <div class="card-body">
+                    <!-- Advanced Form Elements -->
+                    <form method="post" id="quotation-form">
+                        <input type="hidden" value="" name="Id" id="quotation-id" />
+                        <div class="mb-3 row">
+                            <div class="col-md-3">
+                                <div class="col-sm-12">
+                                    <label>Name</label>
+                                    <input type="text" id="type_select" class="form-control" name="Name" />
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-sm-12">
+                                    <label>Patronal %</label>
+                                    <input type="number" class="form-control" id="patronal_percentage" name="EmployerPercentage">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-sm-12">
+                                    <label>Employee %</label>
+                                    <input type="number" class="form-control" id="employee_percentage" name="EmployeePercentage">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-sm-12">
+                                    <label></label>
+                                    <button class="btn btn-primary form-control" id="btn-quotation">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table table-striped">
+                            <table class="table" id="table-quotation">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Patronal %</th>
+                                        <th>Employee %</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                    </form><!-- End General Form Elements -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="container my-5">
+    <div class="row  d-flex justify-content-center">
+        <div class="col-md-10">
+            <div class="card">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">ISR</h6>
+                </div>
+                <div class="card-body">
+                    <form method="post" id="isr-form">
+                        <input type="hidden" value="" name="Id" id="isr-id" />
+                        <div class="mb-3 row">
+                            <div class="col-md-3">
+                                <div class="col-sm-12">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" id="name" name="Name" />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-sm-12">
+                                    <label>From amount $</label>
+                                    <input type="number" class="form-control" id="from-amount" name="FromAmount">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-sm-12">
+                                    <label>To amount $</label>
+                                    <input type="number" class="form-control" id="to-amount" name="ToAmount">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-sm-12">
+                                    <label>Percentage %</label>
+                                    <input type="number" class="form-control" id="percentage" name="Percentage">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-md-3">
+                                <div class="col-sm-12">
+                                    <label>About excess $</label>
+                                    <input type="number" class="form-control" id="about-excess" name="AboutExcess">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-sm-12">
+                                    <label>Fixed amound $</label>
+                                    <input type="number" class="form-control" id="fixed-amount" name="FixedAmount">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col-sm-12">
+                                    <label></label>
+                                    <button class="btn btn-primary form-control" id="btn-isr">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="table table-striped">
+                                <table class="table" id="table-isr">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th class="text-center">From</th>
+                                            <th class="text-center">To</th>
+                                            <th class="text-center">% to apply</th>
+                                            <th class="text-center">About excess</th>
+                                            <th class="text-center">+ Fixed amount</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/pages/business.js"></script>
+}

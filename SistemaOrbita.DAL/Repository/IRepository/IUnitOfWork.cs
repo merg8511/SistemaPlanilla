@@ -16,6 +16,9 @@ namespace SistemaOrbita.DAL.Repository.IRepository
         IEmployeeHistoryRepository EmployeeHistory { get; }
         IEPAssignmentRepository EmployeeAssignment { get; }
         IAuditLogRepository AuditLog { get; }
+        IEmployerRepository Employer { get; }
+        IQuotationTypeRepository QuotationType { get; }
+        IIncomeTaxBracketRepository IncomeTaxBracket { get; }
         Task Save();
     }
 }

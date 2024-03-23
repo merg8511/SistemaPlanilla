@@ -29,6 +29,10 @@ namespace SistemaOrbita.Model.Models
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Field {0} is required")]
+        [MaxLength(9)]
+        public string Dui { get; set; }
+
+        [Required(ErrorMessage = "Field {0} is required")]
         [MaxLength(50)]
         public string Email { get; set; }
 

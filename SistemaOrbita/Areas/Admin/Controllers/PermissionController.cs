@@ -27,10 +27,14 @@ namespace SistemaOrbita.Areas.Admin.Controllers
 			allPermissions.GetPermissions(typeof(Permissions.Employee), id); 
 			allPermissions.GetPermissions(typeof(Permissions.EmployeeHistory), id); 
 			allPermissions.GetPermissions(typeof(Permissions.EmployeeProjectAssignment), id); 
+			allPermissions.GetPermissions(typeof(Permissions.Employer), id); 
+			allPermissions.GetPermissions(typeof(Permissions.EventLog), id); 
 			allPermissions.GetPermissions(typeof(Permissions.EventType), id); 
+			allPermissions.GetPermissions(typeof(Permissions.IncomeTaxBracket), id); 
 			allPermissions.GetPermissions(typeof(Permissions.OrganizationDepartment), id); 
 			allPermissions.GetPermissions(typeof(Permissions.Position), id); 
 			allPermissions.GetPermissions(typeof(Permissions.Project), id); 
+			allPermissions.GetPermissions(typeof(Permissions.QuotationType), id); 
 			                                  
 			var role = await _roleManager.FindByIdAsync(id);
 			model.RoleId = id;

@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+﻿$(function () {
     const preselectedEmployees = $('#preselectedEmployees').data('employees');
     initializeSelect2();
     initializeDataTable();
