@@ -10,24 +10,12 @@ public partial class EventLog
     public string Id { get; set; }
 
     public string Notes { get; set; }
-
-    public decimal? Amount { get; set; }
-
-    public string EmployeeId { get; set; }
-
-    public string EventId { get; set; }
-
-    public string AuthorizedBy { get; set; }
-
-    public DateTime? CreatedAt { get; set; }
-
-    public sbyte? Recurring { get; set; }
-
+   
     public sbyte? Frequency { get; set; }
 
     public DateTime? StartDate { get; set; }
 
-    public DateTime? EndDte { get; set; }
+    public DateTime? EndDate { get; set; }
 
     public sbyte? IsActive { get; set; }
 

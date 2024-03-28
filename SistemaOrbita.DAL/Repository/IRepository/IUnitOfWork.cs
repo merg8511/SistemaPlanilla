@@ -19,6 +19,7 @@ namespace SistemaOrbita.DAL.Repository.IRepository
         IEmployerRepository Employer { get; }
         IQuotationTypeRepository QuotationType { get; }
         IIncomeTaxBracketRepository IncomeTaxBracket { get; }
+        IEventLogRepository EventLog { get; }
         Task Save();
     }
 }

@@ -15,5 +15,4 @@ public partial class EventType
 
     public sbyte? IsActive { get; set; }
 
-    public virtual ICollection<EventLog> EventLogs { get; set; } = new List<EventLog>();
 }
