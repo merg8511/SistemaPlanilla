@@ -121,10 +121,22 @@ function Details(url) {
             $('#projectName').text(data.name);
             $('#projectDescription').text(data.description);
             $('#projectManager').text(data.manager.firstName + ' ' + data.manager.lastName);
-            $('#projectStartDate').text(new Date(data.startDate).toLocaleDateString());
-            $('#projectEndDate').text(new Date(data.endDate).toLocaleDateString());
+            $('#projectStartDate').text(new Date(data.startDate).toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            }));
+            $('#projectEndDate').text(new Date(data.endDate).toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            }));
             $('#projectStatus').text(data.isActive ? 'Active' : 'Inactive');
-            $('#projectCreatedAt').text(new Date(data.createAt).toLocaleDateString());
+            $('#projectCreatedAt').text(new Date(data.createAt).toLocaleDateString('es-ES', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            }));
             $('#projectUpdatedAt').text(data.updateAt ? new Date(data.updateAt).toLocaleDateString() : 'N/A');
         },
         error: function (xhr, status, error) {

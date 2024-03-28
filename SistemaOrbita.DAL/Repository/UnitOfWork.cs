@@ -22,6 +22,7 @@ namespace SistemaOrbita.DAL.Repository
         public IEmployerRepository Employer { get; private set; }
         public IQuotationTypeRepository QuotationType { get; private set; }
         public IIncomeTaxBracketRepository IncomeTaxBracket { get; private set; }
+        public IEventLogRepository EventLog { get; private set; }
 
         public UnitOfWork(OrbitaDbContext context)
         {
@@ -37,6 +38,7 @@ namespace SistemaOrbita.DAL.Repository
             Employer = new EmployerRepository(_context);
             QuotationType = new QuotationTypeRepository(_context);
             IncomeTaxBracket = new IncomeTaxBracketRepository(_context);
+            EventLog = new EventLogRepository(_context);
         }
 
         public void Dispose()

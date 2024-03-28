@@ -21,9 +21,7 @@ public partial class Employee
 
     public virtual ICollection<EmployeeProjectAssignment> EmployeeProjectAssignments { get; set; } = new List<EmployeeProjectAssignment>();
 
-    public virtual ICollection<EventLog> EventLogAuthorizedByNavigations { get; set; } = new List<EventLog>();
-
-    public virtual ICollection<EventLog> EventLogEmployees { get; set; } = new List<EventLog>();
+    
 
     public virtual Gender Gender { get; set; }
 

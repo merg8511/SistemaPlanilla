@@ -303,9 +303,9 @@ public partial class OrbitaDbContext : DbContext
             entity.Property(e => e.EmployeeId)
                 .HasMaxLength(45)
                 .HasColumnName("employee_id");
-            entity.Property(e => e.EndDte)
+            entity.Property(e => e.EndDate)
                 .HasColumnType("datetime")
-                .HasColumnName("end_dte");
+                .HasColumnName("end_date");
             entity.Property(e => e.EventId)
                 .HasMaxLength(45)
                 .HasColumnName("event_id");

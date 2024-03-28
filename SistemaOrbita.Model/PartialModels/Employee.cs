@@ -56,5 +56,10 @@ namespace SistemaOrbita.Model.Models
         [JsonIgnore]
         public virtual ICollection<Project> Projects { get; set; } = new List<Project>();
 
+        [JsonIgnore]
+        public virtual ICollection<EventLog> EventLogAuthorizedByNavigations { get; set; } = new List<EventLog>();
+
+        [JsonIgnore]
+        public virtual ICollection<EventLog> EventLogEmployees { get; set; } = new List<EventLog>();
     }
 }
