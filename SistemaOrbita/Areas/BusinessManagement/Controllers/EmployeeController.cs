@@ -43,7 +43,9 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
                 return NotFound();
             }
 
-            var employee = await _unitOfWork.Employee.GetEmployeeDetails(id);
+            var employee = await _unitOfWork.Employee.GetFirst(
+                e => e.Id == id,
+                includeProperties: "Gender,Position,Municipality,EmployeeHistories,EmployeeHistories.Position");
             if (employee == null)
             {
                 return NotFound();
@@ -130,6 +132,7 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
 
             TempData[DS.Error] = "Error when creating the employee";
             employeeVM.Genders = _unitOfWork.Employee.GetAllDropDownList("Gender");
+            employeeVM.Municipalities = _unitOfWork.Employee.GetAllDropDownList("Municipality");
             employeeVM.PositionsList = await _unitOfWork.Position.GetAll();
             return View(employeeVM);
         }
@@ -144,9 +147,9 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
                     Id = NUlid.Ulid.NewUlid().ToString(),
                     EmployeeId = employee.Id,
                     PositionId = employee.PositionId,
-                    OldSalary = 0, 
+                    OldSalary = 0,
                     NewSalary = employee.Salary,
-                    ChangeReason = changeReason, 
+                    ChangeReason = changeReason,
                     StartDate = employee.StartDate
                 };
                 await _unitOfWork.EmployeeHistory.Create(employeeHistory);

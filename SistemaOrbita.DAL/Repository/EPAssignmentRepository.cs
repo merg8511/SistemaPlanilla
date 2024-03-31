@@ -52,16 +52,5 @@ namespace SistemaOrbita.DAL.Repository
             }
             return null;
         }
-
-        public async Task<IEnumerable<Project>> GetEmployeeProjectAssignment()
-        {
-            var projects = await _context.Projects
-                .Include(p => p.Manager)
-                .Include(p => p.EmployeeProjectAssignments)
-                .ThenInclude(a => a.Employee)
-                .Where(p => p.IsActive == 1).ToListAsync();
-
-            return projects;
-        }
     }
 }

@@ -44,7 +44,11 @@
     }
 
     function initializeSelect2() {
-        $('#searchEmployee').select2().on('select2:select', function (e) {
+        $('#searchEmployee').select2({
+            width: '100%',
+            multiple: true,
+            allowClear: true,
+        }).on('select2:select', function (e) {
             const { element: selectedElement } = e.params.data;
             const $selectedElement = $(selectedElement);
             const selectedValue = $selectedElement.val();

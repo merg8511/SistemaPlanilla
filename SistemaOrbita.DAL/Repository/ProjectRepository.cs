@@ -40,22 +40,17 @@ namespace SistemaOrbita.DAL.Repository
         {
             if (obj == "Employee")
             {
-                return _context.Employees.Select(g => new SelectListItem
-                {
-                    Text = $"{g.FirstName} {g.LastName}",
-                    Value = g.Id
-                });
+                return _context.Employees
+                    .Where(e => e.PositionId == "01HSJ8EMPB38J8DFR99SGN1P4P" || e.PositionId == "01HSJ8FCZFRQF5CA6QC0BDZBCW")
+                    .Select(g => new SelectListItem
+                    {
+                        Text = $"{g.FirstName} {g.LastName}",
+                        Value = g.Id
+                    });
             }
 
             return null;
         }
 
-        public async Task<Project> GetProjectData(string id)
-        {
-            return await _context.Projects
-                .Include(p => p.EmployeeProjectAssignments)
-                .ThenInclude(epa => epa.Employee)
-                .FirstOrDefaultAsync(p => p.Id == id);
-        }
     }
 }

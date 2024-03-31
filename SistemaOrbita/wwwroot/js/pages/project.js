@@ -1,5 +1,6 @@
 ﻿$(function () {
     loadDataTable();
+    initializeManagerSelect();
 });
 
 function loadDataTable() {
@@ -43,8 +44,11 @@ function loadDataTable() {
 
                     if (data == 1) {
                         return '<span class="badge bg-success" style="font-size:0.9rem";><i class="bi bi-check-circle me-1"></i> Active</span>';
+                    } else if (data == 2) {
+                        return '<span class="badge bg-primary"  style="font-size:0.9rem";><i class="bi bi-check-all"></i> Finished</span>';
                     } else {
                         return '<span class="badge bg-danger"  style="font-size:0.9rem";><i class="bi bi-exclamation-octagon me-1"></i> Inactive</span>';
+
                     }
                 },
                 "width": "10%"
@@ -195,4 +199,16 @@ function getProgressBar(data) {
         .css('width', progressPercentage + '%')
         .attr('aria-valuenow', progressPercentage)
         .text(Math.round(progressPercentage) + '%');
+}
+
+function initializeManagerSelect() {
+    var managerSelect = $("#managerSelect").select2({
+        width: '100%',
+        theme: 'bootstrap-5',
+        placeholder: 'Select manager'
+    });
+
+    managerSelect.on('select2:open', () => {
+        document.querySelector('.select2-search__field').focus();
+    });
 }
