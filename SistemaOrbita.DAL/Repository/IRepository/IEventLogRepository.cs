@@ -12,7 +12,5 @@ namespace SistemaOrbita.DAL.Repository.IRepository
     {
         void Update(EventLog eventLog);
         IEnumerable<SelectListItem> GetAllDropDownList(string obj);
-
-        Task<EventLog> GetEventLogData(string id);
     }
 }

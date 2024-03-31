@@ -39,7 +39,7 @@ namespace SistemaOrbita.Areas.Payroll.Controllers
                 EventLog = new EventLog(),
                 Employees = _unitOfWork.EventLog.GetAllDropDownList("Employee"),
                 AuthorizedBy = _unitOfWork.EventLog.GetAllDropDownList("Authorize"),
-                EventTypes = await _unitOfWork.EventType.GetAll()
+                EventTypes = await _unitOfWork.EventType.GetAll(orderBy: o => o.OrderBy(o => o.IsDeduction))
             };
 
             if (string.IsNullOrEmpty(id))
@@ -124,7 +124,9 @@ namespace SistemaOrbita.Areas.Payroll.Controllers
                 return NotFound();
             }
 
-            var eventLog = await _unitOfWork.EventLog.GetEventLogData(id);
+            //var eventLog = await _unitOfWork.EventLog.GetEventLogData(id);
+            var eventLog = await _unitOfWork.EventLog.GetFirst(x => x.Id == id, 
+                includeProperties: "Employee,Employee.Position,Event,AuthorizedByNavigation");
 
             if (eventLog == null)
             {

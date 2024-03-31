@@ -63,17 +63,5 @@ namespace SistemaOrbita.DAL.Repository
             }
             return null;
         }
-
-        public async Task<Employee> GetEmployeeDetails(string id)
-        {
-            return await _context.Employees
-                .Include(e => e.Gender)
-                .Include(e => e.Position)
-                .Include(e => e.Municipality)
-                .Include(e => e.EmployeeHistories)
-                .ThenInclude(h => h.Position)
-                .OrderBy(e => e.StartDate)
-                .FirstOrDefaultAsync(e => e.Id == id);
-        }
     }
 }

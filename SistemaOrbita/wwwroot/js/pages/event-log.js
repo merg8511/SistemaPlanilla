@@ -262,6 +262,7 @@ function updateRecurringValue() {
 
 function initialSelect2() {
     var eventSelect = $("#eventSelect").select2({
+        width: '100%',
         theme: 'bootstrap-5',
         placeholder: 'Select event'
     });

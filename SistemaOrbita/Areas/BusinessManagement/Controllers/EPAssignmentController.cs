@@ -25,7 +25,10 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         [Audit($"{DS.Audit_View} EmployeeProjectAssignment")]
         public async Task<IActionResult> Index()
         {
-            var project = await _unitOfWork.EmployeeAssignment.GetEmployeeProjectAssignment();
+            var project = await _unitOfWork.Project.GetAll(
+                e => e.IsActive == 1,
+                includeProperties: "Manager,EmployeeProjectAssignments,EmployeeProjectAssignments.Employee");
+
             return View(project);
         }
 
@@ -37,14 +40,19 @@ namespace SistemaOrbita.Areas.BusinessManagement.Controllers
         {
             var assignment = new EmployeeAssignmentVM();
 
-            assignment.Project = await _unitOfWork.Project.GetProjectData(id);
+            assignment.Project = await _unitOfWork.Project.GetFirst(
+                p => p.Id == id,
+                includeProperties: "EmployeeProjectAssignments,EmployeeProjectAssignments.Employee"
+                );
 
             if (assignment.Project == null)
             {
                 return NotFound();
             }
 
-            assignment.Employees = await _unitOfWork.Employee.GetAll(includeProperties: "Position,Gender");
+            assignment.Employees = await _unitOfWork.Employee.GetAll(
+                e => e.IsActive == 1 && (e.PositionId == "01HSJ8FCZFRQF5CA6QC0BDZBCW" || e.PositionId == "01HSJ8P3EEXBVVNTH6SXPMMNXP"),
+                includeProperties: "Position,Gender");
 
             assignment.SelectedEmployeeIds = assignment.Project
                 .EmployeeProjectAssignments

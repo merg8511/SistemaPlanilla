@@ -77,14 +77,6 @@ namespace SistemaOrbita.DAL.Repository
             return null;
         }
 
-        public async Task<EventLog> GetEventLogData(string id)
-        {
-            return await _context.EventLogs
-                .Include(e => e.Employee)
-                .ThenInclude(p => p.Position)
-                .Include(e => e.Event)
-                .Include(e => e.AuthorizedByNavigation)
-                .FirstOrDefaultAsync(e => e.Id == id);
-        }
+        
     }
 }

@@ -12,7 +12,5 @@ namespace SistemaOrbita.DAL.Repository.IRepository
     {
         void Update(EmployeeProjectAssignment model);
         IEnumerable<SelectListItem> GetAllDropDownList(string obj);
-
-        Task<IEnumerable<Project>> GetEmployeeProjectAssignment();
     }
 }
