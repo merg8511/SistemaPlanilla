@@ -64,6 +64,22 @@
          "ObjectType": 0
       },
       {
+         "Name": "over_time",
+         "ObjectType": 0
+      },
+      {
+         "Name": "payment_history",
+         "ObjectType": 0
+      },
+      {
+         "Name": "payroll",
+         "ObjectType": 0
+      },
+      {
+         "Name": "payroll_detail",
+         "ObjectType": 0
+      },
+      {
          "Name": "position",
          "ObjectType": 0
       },
@@ -73,6 +89,10 @@
       },
       {
          "Name": "quotation_type",
+         "ObjectType": 0
+      },
+      {
+         "Name": "task_execution_log",
          "ObjectType": 0
       }
    ],

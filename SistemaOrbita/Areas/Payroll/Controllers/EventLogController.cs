@@ -108,7 +108,6 @@ namespace SistemaOrbita.Areas.Payroll.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            //var all = await _unitOfWork.EventLog.GetAll(includeProperties: "Employee,Event,AuthorizedByNavigation");
             var all = await _unitOfWork.EventLog.GetAll(includeProperties: "Event,Employee");
             return Json(new { data = all });
         }

@@ -52,9 +52,18 @@
     <Content Remove="C:\Users\merg8\.nuget\packages\bootstrap\5.3.2\contentFiles\any\any\wwwroot\js\bootstrap.js.map" />
     <Content Remove="C:\Users\merg8\.nuget\packages\bootstrap\5.3.2\contentFiles\any\any\wwwroot\js\bootstrap.min.js" />
     <Content Remove="C:\Users\merg8\.nuget\packages\bootstrap\5.3.2\contentFiles\any\any\wwwroot\js\bootstrap.min.js.map" />
+    <Content Remove="wwwroot\js\pages\Payroll\payroll-details.js" />
+    <Content Remove="wwwroot\js\pages\Payroll\payroll-index.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\js\pages\Payroll\payroll-details.js" />
+    <_ContentIncludedByDefault Remove="wwwroot\js\pages\Payroll\payroll-index.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\pages\Payroll\payroll-details.js" />
+    <None Include="wwwroot\js\pages\Payroll\payroll-index.js" />
     <None Include="wwwroot\lib\bootstrap\css\bootstrap-grid.css.map" />
     <None Include="wwwroot\lib\bootstrap\css\bootstrap-grid.min.css.map" />
     <None Include="wwwroot\lib\bootstrap\css\bootstrap-grid.rtl.css.map" />
@@ -97,6 +106,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
     <PackageReference Include="NUlid" Version="1.7.2" />
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.3.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -113,6 +123,12 @@
     <None Update="Areas\Identity\Data\Permissions.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Permissions.cs</LastGenOutput>
+    </None>
+    <None Update="Rotativa\Windows\wkhtmltoimage.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Rotativa\Windows\wkhtmltopdf.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

@@ -20,6 +20,11 @@ namespace SistemaOrbita.DAL.Repository.IRepository
         IQuotationTypeRepository QuotationType { get; }
         IIncomeTaxBracketRepository IncomeTaxBracket { get; }
         IEventLogRepository EventLog { get; }
+        IOverTimeRepository OverTime { get; }
+        IPayrollRepository Payroll { get; }
+        IPayrollDetailRepository PayrollDetail { get; }
+        ITaskExecutionLogRepository TaskExecutionLog { get; }
+        IPaymentHistoryRepository PaymentHistory { get; }
         Task Save();
     }
 }

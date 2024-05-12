@@ -1,0 +1,252 @@
+﻿@model SistemaOrbita.Model.Models.Payroll;
+
+@using SistemaOrbita.Model.ViewModels;
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var pageTitle = new PageTitleViewModel
+            {
+                Title = "Payroll details",
+                Breadcrumbs = new List<BreadcrumbItem>
+    {
+    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+    new BreadcrumbItem { Text = "Payroll list", Area = "Payroll", Controller = "Payroll", Action = "Index" },
+    }
+            };
+}
+
+<partial name="_PageTitle" model="@pageTitle" />
+
+<div class="section">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <h4>Employer info</h4>
+                        <div class="row mb-3 text-center d-flex justify-content-center">
+                            <div class="col-md-3">
+                                <label for="startDate">Start period</label>
+                                <input type="date" class="form-control" asp-for="StartDate" readonly />
+                            </div>
+                            <div class="col-md-3">
+                                <label for="endDate">End period</label>
+                                <input type="date" class="form-control" asp-for="EndDate" readonly />
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                <label for="totalAmount">Total Amount</label>
+                                <input type="number" class="form-control text-end" asp-for="TotalAmount" id="txtTotalAmount" readonly />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <hr class="bg-secondary" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-5">
+                                <label for="employer">Name</label>
+                                <input type="hidden" asp-for="Employer.Id" />
+                                <input type="text" asp-for="Employer.Name" id="employer" class="form-control" readonly />
+                            </div>
+                            <div class="col-md-7">
+                                <label for="address">Address</label>
+                                <input type="text" id="address" asp-for="Employer.Address" class="form-control" readonly />
+                            </div>
+
+
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="eac">Economy Activity code</label>
+                                <input type="text" id="eac" asp-for="Employer.EconomicActivityCode" class="form-control text-center" readonly />
+                            </div>
+                            <div class="col">
+                                <label for="pisss">ISSS number</label>
+                                <input type="text" id="pisss" asp-for="Employer.PatronalIsssNumber" class="form-control text-center" readonly />
+                            </div>
+                            <div class="col">
+                                <label for="pafp">AFP number</label>
+                                <input type="text" id="pafp" asp-for="Employer.PatronalAfpNumber" class="form-control text-center" readonly />
+                            </div>
+                            <div class="col">
+                                <label for="inpep">INPEP number</label>
+                                <input type="text" id="inpep" asp-for="Employer.PatronalInpepNumber" class="form-control text-center" readonly />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <h4>Details</h4>
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <hr class="bg-secondary h5" />
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="dataTable" width="100%" cellspacing="0">
+                                    <thead style="white-space:nowrap">
+                                        <tr class="align-items-center bg-dark text-white">
+                                            <th class="text-white bg-dark">DUI</th>
+                                            <th class="text-white bg-dark">Employee</th>
+                                            <th>Position</th>
+                                            <th>Salary Base</th>
+                                            <th>Per day</th>
+                                            <th>Worked</th>
+                                            <th class="bg-success text-white">Day Overtime</th>
+                                            <th class="bg-success text-white">Night Overtime</th>
+                                            <th class="bg-success text-white">Salary Overtime</th>
+                                            <th>Sub total</th>
+                                            <th class="bg-success text-white">Bonus</th>
+                                            <th class="bg-danger">Discount</th>
+                                            <th>Earned</th>
+                                            <th class="bg-danger text-white">ISSS</th>
+                                            <th class="bg-danger text-white">AFP</th>
+                                            <th class="bg-danger text-white">ISR</th>
+                                            <th>Employer ISSS</th>
+                                            <th>Employer AFP</th>
+                                            <th class="bg-danger text-white">Total Discounts</th>
+                                            <th>To pay</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="white-space:nowrap">
+                                        @foreach (var item in Model.PayrollDetails)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.Employee.Dui
+                                                </td>
+                                                <td>
+                                                    @item.Employee.FirstName @item.Employee.LastName
+                                                </td>
+                                                <td>
+                                                    @item.Employee.Position.Title
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.SalaryBase
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.PerDay
+                                                </td>
+                                                <td class="text-end">
+                                                    @item.WorkedDays
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.DayOvertime
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.NightOvertime
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.SalaryOvertime
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.SubTotal
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.Bonus
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.Discount
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.Earned
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.Isss
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.Afp
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.Isr
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.EmployeerIsss
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.EmployeerAfp
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.TotalDiscount
+                                                </td>
+                                                <td class="text-end">
+                                                    $ @item.ToPay
+                                                </td>
+                                                <input type="hidden" asp-for="@item.Id" />
+                                                <input type="hidden" asp-for="@item.PayrollId" />
+                                                <input type="hidden" asp-for="@item.EmployeeId" />
+                                                <input type="hidden" asp-for="@item.SalaryBase" />
+                                                <input type="hidden" asp-for="@item.PerDay" />
+                                                <input type="hidden" asp-for="@item.WorkedDays" />
+                                                <input type="hidden" asp-for="@item.DayOvertime" />
+                                                <input type="hidden" asp-for="@item.NightOvertime" />
+                                                <input type="hidden" asp-for="@item.SalaryOvertime" />
+                                                <input type="hidden" asp-for="@item.SubTotal" />
+                                                <input type="hidden" asp-for="@item.Bonus" />
+                                                <input type="hidden" asp-for="@item.Discount" />
+                                                <input type="hidden" asp-for="@item.Earned" />
+                                                <input type="hidden" asp-for="@item.Isss" />
+                                                <input type="hidden" asp-for="@item.Afp" />
+                                                <input type="hidden" asp-for="@item.Isr" />
+                                                <input type="hidden" asp-for="@item.EmployeerIsss" />
+                                                <input type="hidden" asp-for="@item.EmployeerAfp" />
+                                                <input type="hidden" asp-for="@item.TotalDiscount" />
+                                                <input type="hidden" asp-for="@item.ToPay" />
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="align-items-center">
+                                            <th></th>
+                                            <th class="text-end">Total $</th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th></th>
+                                            <th id="txtDO"></th>
+                                            <th id="txtNO"></th>
+                                            <th id="txtSO"></th>
+                                            <th></th>
+                                            <th id="txtBO"></th>
+                                            <th id="txtDI"></th>
+                                            <th></th>
+                                            <th id="txtIS"></th>
+                                            <th id="txtAF"></th>
+                                            <th id="txtIR"></th>
+                                            <th id="txtEI"></th>
+                                            <th id="txtEA"></th>
+                                            <th id="txtTD"></th>
+                                            <th id="txtTP"></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <a asp-action="Index" asp-controller="Payroll" class="btn btn-secondary btn-icon-split">
+                            <span class="icon text-white-50">
+                                <i class="bi bi-arrow-left-circle"></i>
+                            </span>
+                            <span class="text">Return to Index</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/pages/Payroll/payroll-details.js"></script>
+}

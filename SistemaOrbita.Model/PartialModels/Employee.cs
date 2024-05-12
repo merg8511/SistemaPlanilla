@@ -61,5 +61,11 @@ namespace SistemaOrbita.Model.Models
 
         [JsonIgnore]
         public virtual ICollection<EventLog> EventLogEmployees { get; set; } = new List<EventLog>();
+
+        [JsonIgnore]
+        public virtual ICollection<OverTime> OverTimes { get; set; } = new List<OverTime>();
+
+        [JsonIgnore]
+        public virtual ICollection<PayrollDetail> PayrollDetails { get; set; } = new List<PayrollDetail>();
     }
 }

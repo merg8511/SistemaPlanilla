@@ -1,0 +1,205 @@
+﻿@model SistemaOrbita.Model.Models.Payroll;
+@{
+    ViewData["Title"] = "Print Voucher";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boleta de Pago</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .header-text {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .second-header-text {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .vertical-align {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .detail-label {
+            font-weight: bold;
+            display: block;
+            text-align: center;
+        }
+
+        .detail-value {
+            display: block;
+            text-align: center;
+        }
+
+        .detail-column {
+            margin-bottom: 10px;
+        }
+
+        .img-container {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            margin-top: 30px;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        .signature-space {
+            text-align:center;
+            border-top: 1px solid #000;
+            padding-top: 10px;
+            margin-top: 20px;
+        }
+    </style>
+
+
+</head>
+<body>
+    <div class="container">
+        @foreach (var item in Model.PayrollDetails)
+        {
+            <div class="page-break">
+                <div class="row">
+                    <div class="col-xs-3 img-container">
+                        <img src="~/img/orbita/logo-orbita.svg" style="width:200px;" alt="Logo Empresa">
+                    </div>
+
+                    <div class="col-xs-9">
+                        <div class="row">
+                            <div class="col-xs-12 header-text">
+                                Orbita SA de CV
+                            </div>
+                            <div class="col-xs-12 second-header-text">
+                                <span style="margin-top:10px">
+                                    Boleta de pago @item.Payroll.CreatedAt?.ToString("dd/MM/yyyy")
+
+                                </span>
+                            </div>
+                            <div class="col-xs-12">
+                                <div class="row" style="margin-top:10px">
+                                    <div class="col-xs-5 detail-column">
+                                        <span class="detail-label">Empleado:</span>
+                                        <span class="detail-value">@item.Employee.FirstName @item.Employee.LastName</span>
+                                    </div>
+                                    <div class="col-xs-3 detail-column">
+                                        <span class="detail-label">DUI:</span>
+                                        <span class="detail-value">@item.Employee.Dui</span>
+                                    </div>
+                                    <div class="col-xs-4 detail-column">
+                                        <span class="detail-label">Salario base:</span>
+                                        <span class="detail-value">$@item.Employee.Salary</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:20px; margin-bottom:0;padding-bottom:0">
+                    <div class="col-xs-12 second-header-text">
+                        Detalles del pago
+                        <hr />
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-8">
+                                <h3>General</h3>
+                                <div class="table">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Descripción</th>
+                                                <th>Cantidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>Dias trabajados</th>
+                                                <td>@item.WorkedDays</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Salario diario</th>
+                                                <td>$ @item.PerDay</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total horas extra</th>
+                                                <td>$ @item.SalaryOvertime</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Bonificaciones</th>
+                                                <td>$ @item.Bonus</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Descuentos</th>
+                                                <td>$ @item.Discount</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Descuentos de ley</th>
+                                                <td>$ @item.TotalDiscount</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total a pagar</th>
+                                                <th>$ @item.ToPay</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <h3>Detalle dto de ley</h3>
+                                <div class="table">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Descripción</th>
+                                                <th>Cantidad</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>ISSS</th>
+                                                <td>$ @item.Isss</td>
+                                            </tr>
+                                            <tr>
+                                                <th>AFP</th>
+                                                <td>$ @item.Afp</td>
+                                            </tr>
+                                            <tr>
+                                                <th>ISR</th>
+                                                <td>$ @item.Isr</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total</th>
+                                                <th>$ @item.TotalDiscount</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:200px; margin-bottom:0;padding-bottom:0">
+                    <div class="col-xs-3"></div>
+                    <div class="col-xs-6 signature-space text-center">
+                        <label class="second-header-text">@item.Employee.FirstName @item.Employee.LastName</label>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>
