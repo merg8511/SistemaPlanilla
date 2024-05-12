@@ -38,11 +38,21 @@ public partial class OrbitaDbContext : DbContext
 
     public virtual DbSet<OrganizationDepartment> OrganizationDepartments { get; set; }
 
+    public virtual DbSet<OverTime> OverTimes { get; set; }
+
+    public virtual DbSet<PaymentHistory> PaymentHistories { get; set; }
+
+    public virtual DbSet<Payroll> Payrolls { get; set; }
+
+    public virtual DbSet<PayrollDetail> PayrollDetails { get; set; }
+
     public virtual DbSet<Position> Positions { get; set; }
 
     public virtual DbSet<Project> Projects { get; set; }
 
     public virtual DbSet<QuotationType> QuotationTypes { get; set; }
+
+    public virtual DbSet<TaskExecutionLog> TaskExecutionLogs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -309,8 +319,17 @@ public partial class OrbitaDbContext : DbContext
             entity.Property(e => e.EventId)
                 .HasMaxLength(45)
                 .HasColumnName("event_id");
+            entity.Property(e => e.Fee)
+                .HasPrecision(10, 2)
+                .HasColumnName("fee");
             entity.Property(e => e.Frequency).HasColumnName("frequency");
+            entity.Property(e => e.InstallmentsPaid)
+                .HasDefaultValueSql("'0'")
+                .HasColumnName("installments_paid");
             entity.Property(e => e.IsActive).HasColumnName("is_active");
+            entity.Property(e => e.LastFee)
+                .HasPrecision(10, 2)
+                .HasColumnName("last_fee");
             entity.Property(e => e.Notes)
                 .HasMaxLength(255)
                 .HasColumnName("notes");
@@ -318,6 +337,7 @@ public partial class OrbitaDbContext : DbContext
             entity.Property(e => e.StartDate)
                 .HasColumnType("datetime")
                 .HasColumnName("start_date");
+            entity.Property(e => e.TotalInstallments).HasColumnName("total_installments");
 
             entity.HasOne(d => d.AuthorizedByNavigation).WithMany(p => p.EventLogAuthorizedByNavigations)
                 .HasForeignKey(d => d.AuthorizedBy)
@@ -461,6 +481,197 @@ public partial class OrbitaDbContext : DbContext
                 .HasColumnName("updated_at");
         });
 
+        modelBuilder.Entity<OverTime>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("over_time");
+
+            entity.HasIndex(e => e.EmployeeId, "employee_id");
+
+            entity.Property(e => e.Id)
+                .HasMaxLength(45)
+                .HasColumnName("id");
+            entity.Property(e => e.CreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(100)
+                .HasColumnName("created_by");
+            entity.Property(e => e.DayOvertime).HasColumnName("day_overtime");
+            entity.Property(e => e.EmployeeId)
+                .HasMaxLength(45)
+                .HasColumnName("employee_id");
+            entity.Property(e => e.NightOvertime).HasColumnName("night_overtime");
+            entity.Property(e => e.PeriodEnd)
+                .HasColumnType("datetime")
+                .HasColumnName("period_end");
+            entity.Property(e => e.PeriodStart)
+                .HasColumnType("datetime")
+                .HasColumnName("period_start");
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.OverTimes)
+                .HasForeignKey(d => d.EmployeeId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("over_time_ibfk_1");
+        });
+
+        modelBuilder.Entity<PaymentHistory>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("payment_history");
+
+            entity.HasIndex(e => e.EmployeeId, "employee_id");
+
+            entity.HasIndex(e => e.PayrollId, "payroll_id");
+
+            entity.Property(e => e.Id)
+                .HasMaxLength(45)
+                .HasColumnName("id");
+            entity.Property(e => e.Amount)
+                .HasPrecision(10, 2)
+                .HasColumnName("amount");
+            entity.Property(e => e.EmployeeId)
+                .HasMaxLength(45)
+                .HasColumnName("employee_id");
+            entity.Property(e => e.PaymentDate)
+                .HasColumnType("datetime")
+                .HasColumnName("payment_date");
+            entity.Property(e => e.PayrollId)
+                .HasMaxLength(45)
+                .HasColumnName("payroll_id");
+            entity.Property(e => e.Status).HasColumnName("status");
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.PaymentHistories)
+                .HasForeignKey(d => d.EmployeeId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("payment_history_ibfk_2");
+
+            entity.HasOne(d => d.Payroll).WithMany(p => p.PaymentHistories)
+                .HasForeignKey(d => d.PayrollId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("payment_history_ibfk_1");
+        });
+
+        modelBuilder.Entity<Payroll>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("payroll");
+
+            entity.HasIndex(e => e.EmployerId, "employer_id");
+
+            entity.Property(e => e.Id)
+                .HasMaxLength(45)
+                .HasColumnName("id");
+            entity.Property(e => e.CreatedAt)
+                .HasColumnType("datetime")
+                .HasColumnName("created_at");
+            entity.Property(e => e.CreatedBy)
+                .HasMaxLength(100)
+                .HasColumnName("created_by");
+            entity.Property(e => e.EmployerId)
+                .HasMaxLength(45)
+                .HasColumnName("employer_id");
+            entity.Property(e => e.EndDate)
+                .HasColumnType("datetime")
+                .HasColumnName("end_date");
+            entity.Property(e => e.IsActive).HasColumnName("is_active");
+            entity.Property(e => e.StartDate)
+                .HasColumnType("datetime")
+                .HasColumnName("start_date");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.TotalAmount)
+                .HasPrecision(10, 2)
+                .HasColumnName("total_amount");
+
+            entity.HasOne(d => d.Employer).WithMany(p => p.Payrolls)
+                .HasForeignKey(d => d.EmployerId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("payroll_ibfk_1");
+        });
+
+        modelBuilder.Entity<PayrollDetail>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("payroll_detail");
+
+            entity.HasIndex(e => e.EmployeeId, "employee_id");
+
+            entity.HasIndex(e => e.PayrollId, "payroll_id");
+
+            entity.Property(e => e.Id)
+                .HasMaxLength(45)
+                .HasColumnName("id");
+            entity.Property(e => e.Afp)
+                .HasPrecision(10, 2)
+                .HasColumnName("afp");
+            entity.Property(e => e.Bonus)
+                .HasPrecision(10, 2)
+                .HasColumnName("bonus");
+            entity.Property(e => e.DayOvertime)
+                .HasPrecision(10, 2)
+                .HasColumnName("day_overtime");
+            entity.Property(e => e.Discount)
+                .HasPrecision(10, 2)
+                .HasColumnName("discount");
+            entity.Property(e => e.Earned)
+                .HasPrecision(10, 2)
+                .HasColumnName("earned");
+            entity.Property(e => e.EmployeeId)
+                .HasMaxLength(45)
+                .HasColumnName("employee_id");
+            entity.Property(e => e.EmployeerAfp)
+                .HasPrecision(10, 2)
+                .HasColumnName("employeer_afp");
+            entity.Property(e => e.EmployeerIsss)
+                .HasPrecision(10, 2)
+                .HasColumnName("employeer_isss");
+            entity.Property(e => e.Isr)
+                .HasPrecision(10, 2)
+                .HasColumnName("isr");
+            entity.Property(e => e.Isss)
+                .HasPrecision(10, 2)
+                .HasColumnName("isss");
+            entity.Property(e => e.NightOvertime)
+                .HasPrecision(10, 2)
+                .HasColumnName("night_overtime");
+            entity.Property(e => e.PayrollId)
+                .HasMaxLength(45)
+                .HasColumnName("payroll_id");
+            entity.Property(e => e.PerDay)
+                .HasPrecision(10, 2)
+                .HasColumnName("per_day");
+            entity.Property(e => e.SalaryBase)
+                .HasPrecision(10, 2)
+                .HasColumnName("salary_base");
+            entity.Property(e => e.SalaryOvertime)
+                .HasPrecision(10, 2)
+                .HasColumnName("salary_overtime");
+            entity.Property(e => e.SubTotal)
+                .HasPrecision(10, 2)
+                .HasColumnName("sub_total");
+            entity.Property(e => e.ToPay)
+                .HasPrecision(10, 2)
+                .HasColumnName("to_pay");
+            entity.Property(e => e.TotalDiscount)
+                .HasPrecision(10, 2)
+                .HasColumnName("total_discount");
+            entity.Property(e => e.WorkedDays).HasColumnName("worked_days");
+
+            entity.HasOne(d => d.Employee).WithMany(p => p.PayrollDetails)
+                .HasForeignKey(d => d.EmployeeId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("payroll_detail_ibfk_2");
+
+            entity.HasOne(d => d.Payroll).WithMany(p => p.PayrollDetails)
+                .HasForeignKey(d => d.PayrollId)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("payroll_detail_ibfk_1");
+        });
+
         modelBuilder.Entity<Position>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
@@ -563,6 +774,28 @@ public partial class OrbitaDbContext : DbContext
             entity.Property(e => e.Name)
                 .HasMaxLength(255)
                 .HasColumnName("name");
+        });
+
+        modelBuilder.Entity<TaskExecutionLog>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("task_execution_log");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp")
+                .HasColumnName("created_at");
+            entity.Property(e => e.ExecutionDate)
+                .HasColumnType("datetime")
+                .HasColumnName("execution_date");
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .HasColumnName("status");
+            entity.Property(e => e.TaskId)
+                .HasMaxLength(255)
+                .HasColumnName("task_id");
         });
 
         OnModelCreatingPartial(modelBuilder);

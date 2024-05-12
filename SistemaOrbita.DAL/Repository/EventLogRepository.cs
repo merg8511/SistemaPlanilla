@@ -37,7 +37,10 @@ namespace SistemaOrbita.DAL.Repository
                 entity.StartDate = eventLog.StartDate;
                 entity.EndDate = eventLog.EndDate;
                 entity.IsActive = eventLog.IsActive;
-
+                entity.Fee = eventLog.Fee;
+                entity.LastFee = eventLog.LastFee;
+                entity.TotalInstallments = eventLog.TotalInstallments;
+                entity.InstallmentsPaid = eventLog.InstallmentsPaid;
                 _context.SaveChanges();
             }
         }

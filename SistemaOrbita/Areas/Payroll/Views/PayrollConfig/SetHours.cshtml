@@ -1,0 +1,102 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+@model IEnumerable<SistemaOrbita.Model.Models.Employee>;
+
+@{
+    ViewData["Title"] = "GetHours";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Set Overtime";
+    var page = "SetHours";
+}
+<section class="section">
+    @{
+        var pageTitle = new PageTitleViewModel
+            {
+                Title = "Set Hours",
+                Breadcrumbs = new List<BreadcrumbItem>
+    {
+    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+    new BreadcrumbItem { Text = "Payroll list", Area = "Payroll", Controller = "Payroll", Action = "Index" },
+    new BreadcrumbItem { Text = "Set Date", Area = "Payroll", Controller = "PayrollConfig", Action = "SetDate" },
+    }
+            };
+    }
+    <partial name="_PageTitle" model="@pageTitle" />
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-10">
+
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-3">@title for period <span id="start-date"></span> to <span id="end-date"></span> <span id="month"></span> <span id="year"></span></h4>
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-md-6">
+                            <label>Employee</label>
+                            <select class="form-control form-select" id="employee-select" multiple="multiple">
+                                <option></option>
+                                @foreach (var item in Model)
+                                {
+                                    <option value="@item.Id">@item.FirstName @item.LastName - @item.Position.OrganizationDepartment.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>Day Overtime</label>
+                            <input type="number" class="form-control" min="0" value="0" name="dOvertime" id="dOvertime" />
+                        </div>
+                        <div class="col-md-2">
+                            <label>Night Overtime</label>
+                            <input type="number" class="form-control" min="0" value="0" name="nOvertime" id="nOvertime" />
+                        </div>
+                        <div class="col-md-2 mt-4">
+
+                            <button class="btn btn-primary form-control" id="btn-add">
+                                <span class="icon text-white-50">
+                                    <i class="bi bi-plus-lg"></i>
+                                </span>
+                                <span class="text">Add</span>
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-3 justify-content-center">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Employee</th>
+                                        <th>Position</th>
+                                        <th>Day Overtime</th>
+                                        <th>Night Overtime</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th class="text-center">Employee</th>
+                                        <th>Position</th>
+                                        <th>Day Overtime</th>
+                                        <th>Night Overtime</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <partial name="~/Views/Shared/Payroll/_NextBackButtons.cshtml" model="page" />
+                    </div>
+
+                    <partial name="~/Views/Shared/Payroll/_SetOVertime.cshtml" />
+                    <partial name="~/Views/Shared/Payroll/_UpdateOverTime.cshtml" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/pages/Payroll/set-hours.js"></script>
+}

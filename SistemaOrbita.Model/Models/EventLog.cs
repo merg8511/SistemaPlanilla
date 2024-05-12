@@ -10,12 +10,20 @@ public partial class EventLog
     public string Id { get; set; }
 
     public string Notes { get; set; }
-   
+
     public sbyte? Frequency { get; set; }
 
     public DateTime? StartDate { get; set; }
 
     public DateTime? EndDate { get; set; }
+
+    public decimal? Fee { get; set; }
+
+    public decimal? LastFee { get; set; }
+
+    public int? TotalInstallments { get; set; }
+
+    public int? InstallmentsPaid { get; set; }
 
     public sbyte? IsActive { get; set; }
 

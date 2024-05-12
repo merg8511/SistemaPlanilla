@@ -90,6 +90,9 @@ builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+builder.Services.AddHostedService<PaymentLoanService>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -118,5 +121,9 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{area=BusinessManagement}/{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+IWebHostEnvironment env = app.Environment;
+
+Rotativa.AspNetCore.RotativaConfiguration.Setup(env.WebRootPath, "..\\Rotativa\\Windows\\");
 
 app.Run();

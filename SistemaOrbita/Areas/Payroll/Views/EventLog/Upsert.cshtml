@@ -132,12 +132,12 @@
                             <div class="col-md-4">
                                 <label>Select frequency</label>
                                 <div class="form-floating mb-3">
-                                    <select class="form-select" id="floatingSelect" aria-label="Choose a frequency" asp-for="EventLog.Frequency">
+                                    <select class="form-select" id="frequency-select" aria-label="Choose a frequency" asp-for="EventLog.Frequency">
                                         <option selected></option>
                                         <option value="0">Quincenal</option>
                                         <option value="1">Mensual</option>
                                     </select>
-                                    <label for="floatingSelect">frequency</label>
+                                    <label for="frequency-select">frequency</label>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -152,6 +152,31 @@
                                 <div class="input-group">
                                     <input type="date" asp-for="EventLog.EndDate" class="form-control text-center" id="endDate" style="height:55px;border-radius:5px;">
                                     <span asp-validation-for="EventLog.EndDate" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3 justify-content-center container-recurring">
+                            <div class="col-md-4">
+                                <label>Total installments</label>
+                                <div class="form-floating mb-3">
+                                    <div class="input-group">
+                                        <input type="number" asp-for="EventLog.TotalInstallments" class="form-control text-center" id="installments" style="height:55px;border-radius:5px;">
+                                        <span asp-validation-for="EventLog.TotalInstallments" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="floatingInput">Fees</label>
+                                <div class="input-group">
+                                    <input type="number" step="0.01" asp-for="EventLog.Fee" class="form-control text-center" id="fee" style="height:55px;border-radius:5px;">
+                                    <span asp-validation-for="EventLog.Fee" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="floatingInput">Last fee</label>
+                                <div class="input-group">
+                                    <input type="number" step="0.01" asp-for="EventLog.LastFee" class="form-control text-center" id="last-fee" style="height:55px;border-radius:5px;">
+                                    <span asp-validation-for="EventLog.LastFee" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -175,5 +200,5 @@
 </section>
 
 @section Scripts {
-  <script src="~/js/pages/event-log.js"></script>
+    <script src="~/js/pages/event-log.js"></script>
 }

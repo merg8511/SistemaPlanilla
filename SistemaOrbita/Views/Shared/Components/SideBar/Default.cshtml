@@ -77,13 +77,13 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">PAYROLL:</h6>
                 <a class="collapse-item" asp-area="Payroll" asp-controller="EventLog" asp-action="Index">EventLog</a>
-                <a class="collapse-item" asp-area="BusinessManagement" asp-controller="Home" asp-action="Error" asp-route-code="503">Payroll</a>
-                <a class="collapse-item" asp-area="BusinessManagement" asp-controller="Home" asp-action="Error" asp-route-code="503">Voucher</a>
+                <a class="collapse-item" asp-area="Payroll" asp-controller="Payroll" asp-action="Index">Payroll</a>
+                <a class="collapse-item" asp-area="Payroll" asp-controller="Voucher" asp-action="Index">Voucher</a>
 
                 <h6 class="collapse-header">OTHER OPTIONS:</h6>
                 <a class="collapse-item" asp-area="BusinessManagement" asp-controller="Home" asp-action="Error" asp-route-code="503">Vacation</a>
                 <a class="collapse-item" asp-area="BusinessManagement" asp-controller="Home" asp-action="Error" asp-route-code="503">Liquidations</a>
-                <a class="collapse-item" asp-area="BusinessManagement" asp-controller="Home" asp-action="Error" asp-route-code="503">Payment history</a>
+                <a class="collapse-item" asp-area="Payroll" asp-controller="PaymentHistory" asp-action="Index">Payment history</a>
             </div>
         </div>
     </li>

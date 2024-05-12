@@ -1,0 +1,23 @@
+﻿@model string
+<div class="mb-3">
+    @{
+        var step = ViewData["Step"] as string;
+        var controller = step == "SetDate" || step == "Payroll" ? "Payroll" : "PayrollConfig";
+
+        var nextText = ViewData["Next"] as string == "Payroll" ? "Generate payroll" : "Next step";
+        var nextIconClass = ViewData["Next"] as string == "Payroll" ? "bi-clipboard-check" : "bi-arrow-right-circle";
+    }
+    <a asp-area="Payroll" asp-controller="@controller" asp-action="@ViewData["Last"]" class="btn btn-secondary btn-icon-split">
+        <span class="icon text-white-50">
+            <i class="bi bi-arrow-left-circle"></i>
+        </span>
+        <span class="text">Return</span>
+    </a>
+
+    <a asp-area="Payroll" asp-controller="@controller" asp-action="@ViewData["Next"]" class="btn btn-success btn-icon-split" id="btn-save-@Model">
+        <span class="text">@nextText</span>
+        <span class="icon text-white-50">
+            <i class="bi @nextIconClass"></i>
+        </span>
+    </a>
+</div>

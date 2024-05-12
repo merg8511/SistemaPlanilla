@@ -8,7 +8,6 @@ $(function () {
     $('#btn-business').on('click', function (event) {
         event.preventDefault();
         var formData = $('#business-form').serialize();
-        console.log(formData)
         $.ajax({
             url: '/Admin/Business/CreateBusiness',
             type: 'POST',

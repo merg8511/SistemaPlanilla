@@ -1,10 +1,5 @@
 ﻿using SistemaOrbita.DAL.Data;
 using SistemaOrbita.DAL.Repository.IRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SistemaOrbita.DAL.Repository
 {
@@ -23,6 +18,11 @@ namespace SistemaOrbita.DAL.Repository
         public IQuotationTypeRepository QuotationType { get; private set; }
         public IIncomeTaxBracketRepository IncomeTaxBracket { get; private set; }
         public IEventLogRepository EventLog { get; private set; }
+        public IOverTimeRepository OverTime { get; private set; }
+        public IPayrollRepository Payroll { get; private set; }
+        public IPayrollDetailRepository PayrollDetail { get; private set; }
+        public ITaskExecutionLogRepository TaskExecutionLog { get; private set; }
+        public IPaymentHistoryRepository PaymentHistory { get; private set; }
 
         public UnitOfWork(OrbitaDbContext context)
         {
@@ -39,6 +39,11 @@ namespace SistemaOrbita.DAL.Repository
             QuotationType = new QuotationTypeRepository(_context);
             IncomeTaxBracket = new IncomeTaxBracketRepository(_context);
             EventLog = new EventLogRepository(_context);
+            OverTime = new OverTimeRepository(_context);
+            Payroll = new PayrollRepository(_context);
+            PayrollDetail = new PayrollDetailRepository(_context);
+            TaskExecutionLog = new TaskExecutionLogRepository(_context);
+            PaymentHistory = new PaymentHistoryRepository(_context);
         }
 
         public void Dispose()

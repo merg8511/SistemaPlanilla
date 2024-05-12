@@ -1,0 +1,41 @@
+﻿<!-- Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="detailsModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModal">Overtime details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="overtime-form">
+                    <div class="container">
+                        <!-- Project Name and Description -->
+                        <div class="row">
+                            <div class="col">
+                                <strong>Employee</strong>
+                                <input id="txtemployee" class="form-control" type="text" value="" readonly />
+                                <input id="txtotid" class="form-control" type="hidden" name="otid" value="" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <strong>Day overtime</strong>
+                                <input id="txtdayOvertime" class="form-control" type="number" name="dayOvertime" />
+                            </div>
+                            <div class="col">
+                                <strong>Night overtime</strong>
+                                <input id="txtnightOvertime" class="form-control" type="number" name="nightOvertime" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn-update">
+                    <i class="bi bi-floppy"></i>
+                    Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

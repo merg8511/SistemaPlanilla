@@ -1,0 +1,76 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+
+@{
+    ViewData["Title"] = "GetHours";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var title = "Verify payroll";
+}
+<section class="section">
+    @{
+        var pageTitle = new PageTitleViewModel
+            {
+                Title = "Verify configuration",
+                Breadcrumbs = new List<BreadcrumbItem>
+    {
+    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+    new BreadcrumbItem { Text = "Payroll list", Area = "Payroll", Controller = "Payroll", Action = "Index" },
+    new BreadcrumbItem { Text = "Set Date", Area = "Payroll", Controller = "PayrollConfig", Action = "SetDate" },
+    new BreadcrumbItem { Text = "Set Hours", Area = "Payroll", Controller = "PayrollConfig", Action = "SetHours" }
+    }
+            };
+    }
+    <partial name="_PageTitle" model="@pageTitle" />
+
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-10">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-3">@title</h4>
+                    <p>If you want to correct some data, you can return in the settings.</p>
+                    <div class="row mb3">
+                        <div class="col-md-10">
+                            <h5>Payroll period</h5>
+                            <p class="h5">
+                                From: <span id="txtStart" class="h5 text-dark"></span>
+                                to: <span id="txtEnd" class="h5 text-dark"></span>
+                                Month: <span id="txtMonth" class="h5 text-dark"></span>
+                                Year: <span id="txtYear" class="h5 text-dark"></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <h5>Summary</h5>
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Employee</th>
+                                        <th>Position</th>
+                                        <th>Day Overtime</th>
+                                        <th>Night Overtime</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th class="text-center">Employee</th>
+                                        <th>Position</th>
+                                        <th>Day Overtime</th>
+                                        <th>Night Overtime</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <partial name="~/Views/Shared/Payroll/_NextBackButtons.cshtml" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/pages/payroll/verify.js"></script>
+}

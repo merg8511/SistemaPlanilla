@@ -1,0 +1,121 @@
+﻿@using SistemaOrbita.Model.ViewModels;
+@model SistemaOrbita.Model.ViewModels.PaymentHistoryVM;
+@{
+    ViewData["Title"] = "Payment History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var pageTitle = new PageTitleViewModel
+            {
+                Title = "Payment History",
+                Breadcrumbs = new List<BreadcrumbItem>
+                {
+                    new BreadcrumbItem { Text = "Home", Area = "BusinessManagement", Controller = "Home", Action = "Index" },
+                    new BreadcrumbItem { Text = "Payment History", Area = "Payroll", Controller = "PaymentHistory", Action = "Index" },
+                }
+            };
+}
+<partial name="_PageTitle" model="@pageTitle" />
+
+<div id="container-fluid">
+    <div class="mb-3">
+        <div class="row">
+            <div class="col-md-5">
+                <label>Search by</label>
+                <select class="form-select form-control" id="select-type">
+                    <option>Select type</option>
+                    <option value="1">Empleados</option>
+                    <option value="2">Planilla</option>
+                    <option value="3">Departamentos</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3" style="display:none" id="employee-data">
+        <div class="row">
+            <div class="col-md-5">
+                <label>Select employee</label>
+                <select class="form-select form-control" id="employee-select" asp-items="Model.Employees">
+                    <option></option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>Start date</label>
+                <input type="date" class="form-control" id="employee-start-date" />
+            </div>
+            <div class="col-md-2">
+                <label>End date</label>
+                <input type="date" class="form-control" id="employee-end-date" />
+            </div>
+        </div>
+    </div>
+    <div class="mb-3" style="display:none" id="payroll-data">
+        <div class="row">
+            <div class="col-md-5">
+                <label>Select payroll</label>
+                <select class="form-select form-control" id="payroll-select" asp-items="Model.Payrolls">
+                    <option></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3" style="display:none" id="department-data">
+        <div class="row">
+            <div class="col-md-5">
+                <label>Select department</label>
+                <select class="form-select form-control" id="department-select" asp-items="Model.Organizations">
+                    <option></option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>Start date</label>
+                <input type="date" class="form-control" id="department-start-date" />
+            </div>
+            <div class="col-md-2">
+                <label>End date</label>
+                <input type="date" class="form-control" id="department-end-date" />
+            </div>
+        </div>
+    </div>
+    <div class="mb-3" id="div-search" style="display:none">
+        <div class="row">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-block btn-primary" id="btn-search"><i class="bi bi-search"></i> Search</button>
+            </div>
+        </div>
+   </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">@ViewData["Title"]</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Payroll</th>
+                            <th>Employee</th>
+                            <th>Payment date</th>
+                            <th class="text-center">Amount</th>
+                            <th class="text-center">Status</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th class="text-center">Payroll</th>
+                            <th>Employee</th>
+                            <th>Payment date</th>
+                            <th class="text-center">Amount</th>
+                            <th class="text-center">Status</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/pages/payment-history.js"></script>
+}

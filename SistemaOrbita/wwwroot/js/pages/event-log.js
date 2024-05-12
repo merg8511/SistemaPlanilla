@@ -6,6 +6,7 @@ $(function () {
     initializeEventSelect();
     handleDateInputs();
     updateRecurringValue();
+    calculateInstallments();
 });
 
 function loadDataTable() {
@@ -204,6 +205,9 @@ function Details(url) {
                     data.frequency == 0 ? 'Quincenal' :
                         data.frequency == 1 ? 'Mensual' : ''
             );
+            $('#txtTotalInstallments').text(data.totalInstallments ? data.totalInstallments : "N/A");
+            $('#txtFees').text(data.fee ? `$ ${parseFloat(data.fee).toFixed(2)}` : "N/A");
+            $('#txtEndFee').text(data.lastFee ? `$ ${parseFloat(data.lastFee).toFixed(2)}` : "N/A");
         },
         error: function (xhr, status, error) {
             console.error("Error fetching project details:", status, error);
@@ -280,3 +284,42 @@ function initialSelect2() {
     });
 
 }
+
+function calculateInstallments() {
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    const frequency = document.getElementById('frequency-select').value;
+    const totalAmount = parseFloat(document.getElementById('salaryInput').value);
+    const installmentsInput = document.getElementById('installments');
+    const feeInput = document.getElementById('fee');
+    const lastFeeInput = document.getElementById('last-fee');
+
+    if (startDate && endDate && totalAmount && frequency) {
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        let monthsDiff = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+
+        if (frequency === "1") { // Mensual
+            installmentsInput.value = monthsDiff;
+        } else if (frequency === "0") { // Quincenal
+            // Asumimos que hay dos quincenas por mes
+            installmentsInput.value = monthsDiff * 2;
+        }
+
+        if (installmentsInput.value > 0) {
+            let regularFee = totalAmount / installmentsInput.value;
+            regularFee = Math.floor(regularFee * 100) / 100; // Redondear a dos decimales
+
+            let totalRegularFees = regularFee * installmentsInput.value;
+            let lastFee = totalAmount - totalRegularFees + regularFee;
+
+            feeInput.value = regularFee.toFixed(2);
+            lastFeeInput.value = lastFee.toFixed(2);
+        }
+    }
+}
+
+// Asegúrate de invocar calculateInstallments cuando los valores relevantes cambien
+document.getElementById('endDate').addEventListener('change', calculateInstallments);
+document.getElementById('frequency-select').addEventListener('change', calculateInstallments);
+document.getElementById('salaryInput').addEventListener('input', calculateInstallments);

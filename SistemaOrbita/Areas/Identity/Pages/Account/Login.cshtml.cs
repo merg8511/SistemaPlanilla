@@ -128,7 +128,7 @@ namespace SistemaOrbita.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ErrorMessage = "Invalid login attempt.";
+                    ErrorMessage = "Invalid login attempt. Invalid credentials, try again";
                     //ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
